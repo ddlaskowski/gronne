@@ -1,9 +1,9 @@
 # Grønne Mur og Flis AS
 
-Phase 11: editorial projects page for gronne-murogflis.no.
+Phase 12: editorial About page for gronne-murogflis.no.
 The homepage contains the hero, introduction, services, featured craft, selected projects,
 about preview and contact CTA. A shared footer closes every route.
-Services and Projects have complete editorial layouts; About and Contact remain minimal Norwegian Bokmål placeholders.
+Services, Projects and About have complete editorial layouts; Contact remains a minimal Norwegian Bokmål placeholder.
 
 ## Development
 
@@ -490,6 +490,27 @@ Services, layout, component and style files are unchanged. Screenshots were save
 outside the repository, hiding the fixed header only during section captures.
 Approved project photographs and metadata remain pending; no functional issues
 were found. No dependencies were added.
+
+## About page — Phase 12
+
+`src/app/om-oss/page.tsx` is a Server Component with an editorial introduction,
+three confirmed service groupings, a craftsmanship section and a contact CTA.
+Route-scoped `src/styles/about-page.css` reuses the shared container, grid,
+tokens and fonts. Desktop combines offset typography, staggered service rows
+and a portrait media surface; mobile stacks content in reading order.
+
+`src/components/sections/about-craft.tsx` displays `PROSJEKTFOTO KOMMER` until
+an approved image is supplied. Its optional image prop supports `next/image`,
+required alt text and responsive crop positions. No company history or credentials
+were invented; the unconfirmed term “murprofil” is omitted.
+
+ESLint, TypeScript and the production build passed. Browser checks and visual
+review covered 375, 768, 1024 and 1440px: no overflow, clipping or console errors;
+accessible heading hierarchy, sufficient contrast, visible keyboard focus,
+working contact navigation and one global footer. Reduced-motion rendering has
+no new animations or transitions. Homepage, Services, Projects, Header and Footer
+sources are unchanged. Preview: `http://localhost:3007/om-oss` (port 3007).
+Approved photography remains pending. No dependencies were added.
 
 ## Known tooling limitations
 
