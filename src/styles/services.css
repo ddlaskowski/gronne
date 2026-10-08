@@ -53,6 +53,9 @@
 
   .services-description { font-size: var(--type-label); }
 
+  /* Let GSAP own the reveal; restore the hover transition when opacity clears. */
+  .services-name[style*="opacity"] { transition: none; }
+
   @media (min-width: 48rem) {
     .services-heading { grid-column: 2 / -1; }
     .services-number { grid-column: 1; grid-row: 1; padding-top: var(--space-12); }

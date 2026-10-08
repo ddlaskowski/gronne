@@ -2,6 +2,7 @@ import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { Container } from "@/components/layout/container";
+import { RevealHeading } from "@/components/motion/reveal-heading";
 
 type Project = {
   image?: {
@@ -22,9 +23,9 @@ export function SelectedProjects({ projects = emptyProjects }: { projects?: read
       <Container>
         <div className="selected-projects-header layout-grid">
           <p className="selected-projects-label type-label">04 / UTVALGTE PROSJEKTER</p>
-          <h2 id="selected-projects-heading" className="selected-projects-heading">
+          <RevealHeading id="selected-projects-heading" className="selected-projects-heading">
             <span>Arbeid som</span>{" "}<span>taler for seg.</span>
-          </h2>
+          </RevealHeading>
         </div>
         <div className="selected-projects-composition layout-grid">
           {projects.map((project, index) => {

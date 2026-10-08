@@ -4,8 +4,19 @@ import { useEffect, useRef, type ComponentPropsWithoutRef } from "react";
 import { revealMotion } from "@/lib/motion";
 import { loadGsap } from "@/lib/gsap-client";
 
+type RevealHeadingProps = ComponentPropsWithoutRef<"h2"> & {
+  as?: "h2" | "h3";
+  duration?: number;
+  offset?: number;
+};
+
 // Progressive enhancement: server HTML and CSS always render a visible heading.
-export function RevealHeading(props: ComponentPropsWithoutRef<"h2">) {
+export function RevealHeading({
+  as: Tag = "h2",
+  duration = revealMotion.duration,
+  offset = revealMotion.y,
+  ...props
+}: RevealHeadingProps) {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const revealed = useRef(false);
 
@@ -29,9 +40,9 @@ export function RevealHeading(props: ComponentPropsWithoutRef<"h2">) {
         // History restoration or late loading must never re-hide visible content.
         if (revealed.current || heading.getBoundingClientRect().top <= innerHeight * 0.85) return;
         gsap.from(heading, {
-          y: revealMotion.y,
+          y: offset,
           opacity: 0,
-          duration: revealMotion.duration,
+          duration,
           ease: revealMotion.ease,
           clearProps: "transform,opacity",
           onComplete: () => { revealed.current = true; },
@@ -50,7 +61,7 @@ export function RevealHeading(props: ComponentPropsWithoutRef<"h2">) {
       disposed = true;
       revert?.();
     };
-  }, []);
+  }, [duration, offset]);
 
-  return <h2 {...props} ref={headingRef} />;
+  return <Tag {...props} ref={headingRef} />;
 }

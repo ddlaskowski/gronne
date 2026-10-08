@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/layout/container";
+import { RevealHeading } from "@/components/motion/reveal-heading";
 
 export function AboutPreview() {
   return (
@@ -7,9 +8,9 @@ export function AboutPreview() {
       <Container>
         <div className="about-preview-grid layout-grid">
           <p className="about-preview-label type-label">05 / OM OSS</p>
-          <h2 id="about-preview-heading" className="about-preview-heading">
+          <RevealHeading id="about-preview-heading" className="about-preview-heading">
             <span>Et godt resultat</span>{" "}<span>begynner med</span>{" "}<span>godt samarbeid.</span>
-          </h2>
+          </RevealHeading>
           <div className="about-preview-copy">
             <p className="about-preview-description type-body">
               Grønne Mur og Flis AS utfører flislegging, baderomsarbeid,

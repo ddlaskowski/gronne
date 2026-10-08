@@ -1,4 +1,5 @@
 import { Container } from "@/components/layout/container";
+import { RevealHeading } from "@/components/motion/reveal-heading";
 
 type Service = {
   number: string;
@@ -24,7 +25,7 @@ export function Services() {
           {services.map((service) => (
             <li key={service.number} className="services-row layout-grid">
               <span className="services-number type-label" aria-hidden="true">{service.number}</span>
-              <h3 className="services-name">{service.name}</h3>
+              <RevealHeading as="h3" className="services-name" duration={0.8} offset={20}>{service.name}</RevealHeading>
               <p className="services-description type-micro">{service.specializations}</p>
             </li>
           ))}

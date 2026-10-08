@@ -1,6 +1,6 @@
 # Grønne Mur og Flis AS
 
-Phase 17: Hero entrance motion for gronne-murogflis.no.
+Phase 18: selective homepage scroll choreography for gronne-murogflis.no.
 The homepage contains the hero, introduction, services, featured craft, selected projects,
 about preview and contact CTA. A shared footer closes every route.
 Services, Projects, About and Contact have complete editorial layouts in Norwegian Bokmål.
@@ -39,9 +39,9 @@ on a clean checkout. Google Fonts must be reachable during the first build;
 
 The layout, logo and route placeholders are Server Components. The hero is also
 a Server Component. Header scroll state, desktop active-route navigation,
-the mobile menu, the Featured Craft reveal heading, Hero entrance text boundary
+the mobile menu, selected homepage reveal headings, Hero entrance text boundary
 and optional image-load failure handling use Client Components. GSAP is used for
-the Phase 16 heading reveal and Phase 17 Hero entrance;
+selected homepage heading reveals and the Hero entrance;
 there are no additional UI or state-management libraries.
 
 ## Navigation and brand
@@ -689,6 +689,48 @@ the repository; no test instrumentation is shipped.
 No dependencies, content, SEO, CSS, Header/Footer or subpage changes were made.
 Physical mobile smoothness and screen-reader behavior remain manual checks.
 Production preview: `http://localhost:3012` (port 3012).
+
+## Homepage scroll choreography — Phase 18
+
+The existing `RevealHeading` now supports an optional `as="h3"`, `duration` and
+`offset`. Defaults remain H2, 0.9 seconds and 24px, preserving Featured Craft's
+settings and lifecycle. Surrounding section components remain Server Components;
+only the selected heading elements cross the existing client boundary. No new
+wrappers, dependencies, content, SEO or image/placeholder animations were added.
+
+Animated targets are the Intro H2, three service H3 titles, the existing Featured
+Craft H2, Selected Projects H2 and About Preview H2. Service titles each use
+their own ScrollTrigger with a 20px offset and 0.8-second duration. Other headings
+retain 24px and 0.9 seconds. Every reveal uses opacity, vertical translation,
+`power3.out`, `top 85%` and `once: true`; service titles are not grouped or staggered.
+The Services section heading, labels, numbers, descriptions, dividers, media,
+Contact CTA and Footer stay static. Hero's entrance remains unchanged.
+An existing CSS transform transition was delaying GSAP's service-title movement.
+`src/styles/services.css` suppresses that transition only while the title has
+GSAP's inline opacity; clearing the reveal styles restores the original hover
+transition. Layout and hover treatment otherwise remain unchanged.
+
+The shared loader, cancelled-effect guard and scoped GSAP matchMedia cleanup are
+reused. Reduced motion reverts transforms/opacity and removes owned triggers.
+Completed headings do not replay on reverse scroll. Already-visible/restored
+headings are not re-hidden. Server HTML/CSS stay readable without JavaScript or
+when runtime loading fails. Lifecycle behavior is unchanged for default props.
+
+ESLint, TypeScript and the production build passed. Production browser checks at
+375, 768, 1024 and 1440px verified all seven independent heading triggers, exact
+settings, early/intermediate/completed states, no reverse-scroll replay, and
+unchanged section/media geometry and document height. No horizontal overflow,
+clipping, animation scrollbars, duplicate triggers or console errors were found.
+Three route cycles per width verified zero owned tweens/triggers after unmount;
+back/forward restoration leaves headings visible. Subpages have no triggers.
+Mobile menu locking/Escape preserves scroll position and does not interfere.
+Fresh reduced-motion, disabled-JavaScript and blocked-script modes passed at
+all four widths; live preference changes restore visible headings. A focused
+transform test confirmed the service CSS transition fix. Browser diagnostics and
+captures remain outside the repository. No production diagnostics were added.
+
+Production preview: `http://localhost:3013` (port 3013). Physical iOS/Android motion smoothness and
+assistive-technology behavior remain manual checks.
 
 ## Known tooling limitations
 
