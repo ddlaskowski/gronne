@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { HeroImage } from "@/components/sections/hero-image";
+import { HeroEntrance } from "@/components/motion/hero-entrance";
 import heroCraft from "../../../public/images/hero/hero-craft.webp";
 
 export function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-heading">
       <div className="hero-copy-panel">
-        <div className="hero-copy">
+        <HeroEntrance className="hero-copy">
           <p className="type-label text-muted">FLIS · PUSS · PRESISJON</p>
           <h1 id="hero-heading" className="hero-heading">
             <span>Fra håndverk</span><span>til ferdig rom.</span>
@@ -20,7 +21,7 @@ export function Hero() {
               <path d="M0 8h26M19 1l7 7-7 7" stroke="currentColor" strokeWidth="1" />
             </svg>
           </Link>
-        </div>
+        </HeroEntrance>
         <p className="hero-location type-label text-muted">OSLO OG OMEGN</p>
       </div>
       <div className="hero-media">

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type ComponentPropsWithoutRef } from "react";
 import { revealMotion } from "@/lib/motion";
+import { loadGsap } from "@/lib/gsap-client";
 
 // Progressive enhancement: server HTML and CSS always render a visible heading.
 export function RevealHeading(props: ComponentPropsWithoutRef<"h2">) {
@@ -14,10 +15,9 @@ export function RevealHeading(props: ComponentPropsWithoutRef<"h2">) {
 
     async function initialize() {
       // Defer loading the motion runtime until this client component mounts.
-      const [{ gsap }, { ScrollTrigger }] = await Promise.all([
-        import("gsap"),
+      const [gsap, { ScrollTrigger }] = await Promise.all([
+        loadGsap(),
         import("gsap/ScrollTrigger"),
-        document.fonts.ready,
       ]);
       const heading = headingRef.current;
       if (disposed || !heading) return;

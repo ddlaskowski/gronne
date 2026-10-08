@@ -1,6 +1,6 @@
 # Grønne Mur og Flis AS
 
-Phase 16: motion design foundation for gronne-murogflis.no.
+Phase 17: Hero entrance motion for gronne-murogflis.no.
 The homepage contains the hero, introduction, services, featured craft, selected projects,
 about preview and contact CTA. A shared footer closes every route.
 Services, Projects, About and Contact have complete editorial layouts in Norwegian Bokmål.
@@ -39,8 +39,9 @@ on a clean checkout. Google Fonts must be reachable during the first build;
 
 The layout, logo and route placeholders are Server Components. The hero is also
 a Server Component. Header scroll state, desktop active-route navigation,
-the mobile menu, the Featured Craft reveal heading and optional image-load failure
-handling use Client Components. GSAP is used only for the Phase 16 heading reveal;
+the mobile menu, the Featured Craft reveal heading, Hero entrance text boundary
+and optional image-load failure handling use Client Components. GSAP is used for
+the Phase 16 heading reveal and Phase 17 Hero entrance;
 there are no additional UI or state-management libraries.
 
 ## Navigation and brand
@@ -644,6 +645,50 @@ and assistive-technology behavior remain manual checks. No functional issues
 were found. GSAP installation used the existing trusted certificate after the
 registry certificate error; TLS verification remained enabled. Existing tooling
 limitations below are unchanged.
+
+## Hero entrance — Phase 17
+
+`src/components/motion/hero-entrance.tsx` replaces the existing `.hero-copy` div
+with the same DOM element rendered through a client boundary. Hero remains a
+Server Component; text, layout, styling, CTA, location and photography are
+unchanged. A single scoped GSAP timeline uses only opacity and translateY:
+
+| Element | Start | Duration | Offset |
+| --- | --- | --- | --- |
+| Eyebrow | 0.15s | 0.55s | 12px |
+| Headline | 0.30s | 1.00s | 28px |
+| Description | 0.55s | 0.75s | 16px |
+| CTA | 0.75s | 0.65s | 12px |
+
+All tweens use the existing `power3.out` default. The entrance takes 1.4 seconds;
+there is no Hero ScrollTrigger, image animation or page transition. Local
+selectors are restricted to the component ref. Keyboard focus finishes the
+timeline immediately; focus before runtime loading prevents a later reveal.
+
+`src/lib/gsap-client.ts` centralizes the cached dynamic GSAP import and font-ready
+wait. Featured Craft now calls this loader without changing its tween, trigger,
+settings or cleanup. Each component retains its own GSAP matchMedia context.
+Hero reverts its timeline and styles on unmount or reduced-motion changes;
+cancelled effects cannot initialize after leaving the route. Initial reduced
+motion leaves all text visible, and subsequent preference changes do not re-hide
+it. The entrance may replay on a new mount; offscreen history-restored Hero text
+is not hidden. Server markup/CSS remain visible if JavaScript is unavailable or
+script loading fails. Completed tweens clear their inline opacity/transform.
+
+ESLint, TypeScript and the production build passed. Production browser checks
+at 375, 768, 1024 and 1440px verified timeline starts/durations/offsets, completed
+visibility, stable image and container geometry, no text clipping or overflow,
+and unchanged document height. Repeated mounts, unmounts during the entrance,
+back/forward navigation, live reduced-motion changes and keyboard CTA completion
+passed without duplicate timelines or console errors. Fresh reduced-motion,
+disabled-JavaScript and blocked-script contexts remained readable at every width.
+A final delayed-runtime test verified focus before GSAP initialization stays
+visible at all four widths. Browser diagnostics and screenshots are outside
+the repository; no test instrumentation is shipped.
+
+No dependencies, content, SEO, CSS, Header/Footer or subpage changes were made.
+Physical mobile smoothness and screen-reader behavior remain manual checks.
+Production preview: `http://localhost:3012` (port 3012).
 
 ## Known tooling limitations
 
