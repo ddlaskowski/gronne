@@ -1,7 +1,7 @@
 # Grønne Mur og Flis AS
 
-Phase 04: brand philosophy and introduction for gronne-murogflis.no.
-The homepage contains the hero and introduction; the four navigation destinations remain minimal
+Phase 05: architectural services section for gronne-murogflis.no.
+The homepage contains the hero, introduction and services; the four navigation destinations remain minimal
 Norwegian Bokmål placeholders. Other homepage sections belong to later phases.
 
 ## Development
@@ -32,7 +32,7 @@ on a clean checkout. Google Fonts must be reachable during the first build;
 - `src/styles/tokens.css`: palette, semantic colors, spacing, type and layout tokens.
 - `src/components/layout`: header, navigation, mobile menu and responsive container.
 - `src/components/ui`: original brand logo.
-- `src/components/sections`: hero, image loader and introduction.
+- `src/components/sections`: hero, image loader, introduction and services.
 - `src/lib`: shared navigation destinations.
 - `public/brand`, `public/images/{hero,projects,services}`: reserved asset directories.
 
@@ -188,6 +188,37 @@ layout gap. No browser console errors or warnings were observed. The section
 has no animations or transitions, so no motion override is needed. Desktop and
 mobile previews were captured outside the repo. Hero and header were not edited
 in this phase; no dependencies or additional homepage sections were added.
+
+## Services
+
+`src/components/sections/services.tsx` is a Server Component immediately after
+the introduction. Its typed data contains only the three supplied services and
+their Norwegian specializations. `src/styles/services.css` reuses the existing
+container, responsive grid, spacing and font tokens, with charcoal (#15191A)
+and warm paper text.
+
+Three full-width rows use thin dividers, small numbers and large regular-weight
+DM Sans names. IBM Plex Mono carries the section label, numbers and descriptions.
+Names scale from 32px to 72px with tight tracking. Desktop places numbers in
+column 1, names in columns 2–12 and descriptions in columns 8–12. Tablet uses
+columns 2–6 for names and descriptions. Mobile stacks number, name and description;
+BETONG & FORSKALING wraps to two lines without breaking individual words.
+
+The semantic section has an H2 and three H3 service headings inside an ordered
+list. Supplementary copy retains high contrast on charcoal. Rows are informational:
+no service detail destinations exist, so there are no links, arrows or focus stops.
+Fine-pointer hover shifts names 3px and gently emphasizes the divider over 240ms.
+These effects apply only with `prefers-reduced-motion: no-preference`.
+
+Phase 05 validation: ESLint (zero warnings), TypeScript and production build
+passed. Production browser and screenshot checks covered 1440 × 900, 768 × 1024,
+393 × 852 and 320 × 700. The 12/6/4-column grids, 1px dividers, typography,
+zero gap after introduction and absence of horizontal overflow or clipped names
+were verified. Reduced motion produced no transform and a zero transition duration.
+No application errors were observed; the existing missing `/favicon.ico` produces
+a browser resource 404. Section screenshots hide the fixed header only during
+capture; transition screenshots retain it. Hero, header and introduction are
+unchanged. No dependencies, detail pages or additional sections were added.
 
 ## Known tooling limitations
 

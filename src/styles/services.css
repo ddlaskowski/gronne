@@ -1,0 +1,80 @@
+@layer components {
+  .services {
+    --services-rule: color-mix(in srgb, var(--foreground-inverse) 24%, var(--color-charcoal));
+    padding-block: var(--section-space);
+    background: var(--color-charcoal);
+    color: var(--foreground-inverse);
+  }
+
+  .services-header.layout-grid {
+    row-gap: var(--space-32);
+    margin-bottom: clamp(var(--space-48), 6vw, var(--space-96));
+  }
+
+  .services-label, .services-heading, .services-number,
+  .services-name, .services-description {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+
+  .services-heading {
+    font-size: var(--type-section);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+  }
+
+  .services-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .services-row.layout-grid {
+    row-gap: var(--space-16);
+    padding-block: clamp(var(--space-32), 4.5vw, var(--space-64));
+    border-top: 1px solid var(--services-rule);
+  }
+
+  .services-row:last-child { border-bottom: 1px solid var(--services-rule); }
+
+  .services-number, .services-description {
+    color: color-mix(in srgb, var(--foreground-inverse) 72%, var(--color-charcoal));
+  }
+
+  .services-name {
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+    text-wrap: pretty;
+    overflow-wrap: break-word;
+  }
+
+  .services-description { font-size: var(--type-label); }
+
+  @media (min-width: 48rem) {
+    .services-heading { grid-column: 2 / -1; }
+    .services-number { grid-column: 1; grid-row: 1; padding-top: var(--space-12); }
+    .services-name { grid-column: 2 / -1; }
+    .services-description { grid-column: 2 / -1; }
+  }
+
+  @media (min-width: 75rem) {
+    .services-label { grid-column: 1 / span 3; padding-top: var(--space-12); }
+    .services-heading { grid-column: 4 / -1; }
+    .services-description { grid-column: 8 / -1; }
+    .services-row.layout-grid { row-gap: var(--space-24); }
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .services-row {
+      transition: border-color 240ms ease;
+    }
+    .services-name { transition: transform 240ms ease; }
+    .services-row:hover {
+      border-color: color-mix(in srgb, var(--foreground-inverse) 42%, var(--color-charcoal));
+    }
+    .services-row:hover .services-name { transform: translateX(3px); }
+  }
+}
