@@ -2,6 +2,7 @@ import { Hero } from "@/components/sections/hero";
 import { Introduction } from "@/components/sections/introduction";
 import { Services } from "@/components/sections/services";
 import { FeaturedCraft } from "@/components/sections/featured-craft";
+import { SelectedProjects } from "@/components/sections/selected-projects";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <Introduction />
       <Services />
       <FeaturedCraft />
+      <SelectedProjects />
     </main>
   );
 }

@@ -1,7 +1,8 @@
 # Grønne Mur og Flis AS
 
-Phase 06: featured craft section for gronne-murogflis.no.
-The homepage contains the hero, introduction, services and featured craft; the four navigation destinations remain minimal
+Phase 07: selected projects section for gronne-murogflis.no.
+The homepage contains the hero, introduction, services, featured craft and selected projects;
+the four navigation destinations remain minimal
 Norwegian Bokmål placeholders. Other homepage sections belong to later phases.
 
 ## Development
@@ -32,7 +33,7 @@ on a clean checkout. Google Fonts must be reachable during the first build;
 - `src/styles/tokens.css`: palette, semantic colors, spacing, type and layout tokens.
 - `src/components/layout`: header, navigation, mobile menu and responsive container.
 - `src/components/ui`: original brand logo.
-- `src/components/sections`: hero, image loader, introduction, services and featured craft.
+- `src/components/sections`: hero, image loader, introduction, services, featured craft and selected projects.
 - `src/lib`: shared navigation destinations.
 - `public/brand`, `public/images/{hero,projects,services}`: reserved asset directories.
 
@@ -261,6 +262,52 @@ application errors were observed during this run. Normal and reduced-motion
 styles have no animations or transitions. Section screenshots hide the fixed
 header only during capture; transition screenshots retain it. Completed sections
 are unchanged, and no dependencies, extra routes or other sections were added.
+
+## Selected projects
+
+`src/components/sections/selected-projects.tsx` is a Server Component directly
+after Featured Craft. It uses the supplied section index and two-line H2 without
+adding project names, locations, dates, descriptions, testimonials or client names.
+`src/styles/selected-projects.css` reuses `Container`, `.layout-grid`, spacing,
+typography and palette tokens. The section uses warm ivory with a thin header rule.
+
+Desktop reserves columns 1–7 for the dominant 5:4 landscape area and columns 9–12
+for a smaller 4:5 portrait area, offset down by 128px. Column 8 remains empty for
+generous separation. Tablet uses four columns and two columns, with a 64px offset.
+Mobile stacks two full-width surfaces with a 48px gap: the first is 4:3 and the
+second 3:2, retaining the first area's visual prominence. Heading size scales
+from 40px on mobile to 72px at 1440px, with a maximum of 88px.
+
+Both neutral surfaces mix existing stone and ivory tokens at slightly different
+strengths and display `PROSJEKTFOTO KOMMER`. They have no links, icons, dashed
+borders, image requests or captions. Their label contrast exceeds 13:1. No new
+animations or transitions are introduced. The sole interactive element is the
+editorial `SE ALLE PROSJEKTER →` link to the existing `/prosjekter` placeholder;
+it has a 44px minimum target height and the shared visible keyboard focus outline.
+The `/prosjekter` page is unchanged.
+
+The optional `projects` prop accepts exactly two entries. Each supports an
+optional `image` containing a real `src`, descriptive `alt`, and optional
+`position.mobile`, `position.tablet`, and `position.desktop` object-position values.
+Sources may be local URLs or static imports. Optional `title` and `category`
+produce a semantic caption only when supplied. The default data is two empty
+objects. When approved photography arrives, replace those empty entries with
+real configurations; `next/image` supplies responsive sizes, cover fitting and
+the reserved geometry. Review alt text, crops and any metadata with the client.
+No nonexistent image file is referenced now.
+
+Phase 07 validation: ESLint (zero warnings), TypeScript and production build
+passed. The fresh production instance reported port 3002; actual browser requests
+to `http://localhost:3002` returned HTTP 200 and rendered all five homepage sections.
+Checks and visual review at 1440 × 900, 768 × 1024, 393 × 852 and 320 × 700
+confirmed both placeholders, asymmetric alignment, two headline lines, no clipped
+copy or horizontal overflow, and zero gap after Featured Craft. Featured Craft's
+source files and layout geometry are unchanged. Keyboard focus showed the shared
+2px outline with a 4px offset, and Enter opened `/prosjekter` with its existing H1.
+No console or application errors were observed. Screenshots were captured outside
+the repository; section captures hide the fixed header only during capture.
+Approved photos and real project metadata remain pending. No dependencies,
+additional sections or subpage changes were introduced.
 
 ## Known tooling limitations
 

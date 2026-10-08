@@ -5,6 +5,7 @@
 @import "../styles/introduction.css";
 @import "../styles/services.css";
 @import "../styles/featured-craft.css";
+@import "../styles/selected-projects.css";
 
 @theme inline {
   --color-background: var(--background);
