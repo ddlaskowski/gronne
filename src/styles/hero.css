@@ -1,0 +1,110 @@
+@layer components {
+  .hero {
+    display: grid;
+    min-height: 100svh;
+    margin-top: calc(-1 * var(--header-height));
+    background: var(--color-ivory);
+  }
+
+  .hero-copy-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    padding: calc(var(--header-height) + var(--space-48)) var(--container-gutter) var(--space-48);
+  }
+
+  .hero-copy { width: 100%; max-width: 42rem; }
+
+  .hero-heading {
+    margin-block: var(--space-24) var(--space-32);
+    font-size: clamp(2.25rem, 1.5rem + 3.5vw, 4.5rem);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-heading);
+  }
+
+  .hero-heading span { display: block; }
+
+  .hero-description { max-width: 43ch; }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-24);
+    min-height: 44px;
+    margin-top: var(--space-32);
+    padding-block: var(--space-12);
+    border-bottom: 1px solid var(--foreground);
+    color: var(--foreground);
+  }
+
+  .hero-cta svg { flex-shrink: 0; transition: transform 180ms ease; }
+  .hero-cta:hover svg { transform: translateX(4px); }
+
+  .hero-location {
+    margin-top: var(--space-48);
+    padding-top: var(--space-16);
+    border-top: 1px solid var(--border);
+  }
+
+  .hero-media {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    min-height: 20rem;
+    aspect-ratio: 4 / 3;
+    background: var(--color-charcoal);
+  }
+
+  /* Architectural material study, deliberately distinct from photography. */
+  .hero-image-placeholder {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: var(--color-graphite);
+  }
+
+  .hero-image-placeholder::before {
+    content: "";
+    position: absolute;
+    inset: 16% 12% 16% 28%;
+    border: 1px solid color-mix(in srgb, var(--color-stone) 22%, transparent);
+    background: var(--color-charcoal);
+  }
+
+  .hero-image-placeholder::after {
+    content: "";
+    position: absolute;
+    inset: 56% 0 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-stone) 22%, transparent);
+  }
+
+  .hero-image {
+    object-fit: cover;
+    object-position: 45% 50%;
+  }
+
+  @media (min-width: 48rem) and (max-width: 63.999rem) {
+    .hero-copy-panel { padding-bottom: var(--space-64); }
+    .hero-media { aspect-ratio: 16 / 9; }
+  }
+
+  @media (min-width: 64rem) {
+    .hero { grid-template-columns: 49fr 51fr; }
+    .hero-media { grid-column: 1; grid-row: 1; aspect-ratio: auto; }
+    .hero-copy-panel {
+      grid-column: 2;
+      grid-row: 1;
+      padding: calc(var(--header-height) + var(--space-64)) clamp(2rem, 4vw, 5rem) var(--space-32);
+    }
+    .hero-copy { margin-block: auto; }
+    .hero-heading { font-size: clamp(3rem, 4.6vw, 7rem); }
+    .hero-location { margin-top: var(--space-64); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-cta svg { transition: none; }
+    .hero-cta:hover svg { transform: none; }
+  }
+}

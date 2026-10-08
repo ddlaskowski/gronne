@@ -1,6 +1,7 @@
 @layer components {
+  :root { --header-height: 8rem; }
+
   .site-header {
-    --header-height: 8rem;
     height: var(--header-height);
   }
 
@@ -119,7 +120,7 @@
   #main-content { scroll-margin-top: var(--header-height, 11rem); }
 
   @media (min-width: 64rem) {
-    .site-header { --header-height: 10rem; }
+    :root { --header-height: 10rem; }
     .brand-logo { width: 10rem; }
     .site-header[data-compact="true"] .header-content { height: 6rem; }
     .site-header[data-compact="true"] .brand-logo { width: 6rem; }

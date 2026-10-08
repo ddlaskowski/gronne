@@ -1,8 +1,8 @@
 # Grønne Mur og Flis AS
 
-Phase 02: brand integration and responsive navigation for gronne-murogflis.no.
-The homepage and four navigation destinations are minimal Norwegian Bokmål
-placeholders. Hero, services, projects and footer belong to later phases.
+Phase 03: editorial split hero for gronne-murogflis.no.
+The homepage contains the hero; the four navigation destinations remain minimal
+Norwegian Bokmål placeholders. Other homepage sections belong to later phases.
 
 ## Development
 
@@ -30,12 +30,15 @@ on a clean checkout. Google Fonts must be reachable during the first build;
 
 - `src/app`: root layout, metadata, global styles and homepage.
 - `src/styles/tokens.css`: palette, semantic colors, spacing, type and layout tokens.
-- `src/components/layout`: reusable responsive container.
-- `src/components/ui`, `src/components/sections`, `src/lib`: reserved for future phases.
+- `src/components/layout`: header, navigation, mobile menu and responsive container.
+- `src/components/ui`: original brand logo.
+- `src/components/sections`: hero and its optional image loader.
+- `src/lib`: shared navigation destinations.
 - `public/brand`, `public/images/{hero,projects,services}`: reserved asset directories.
 
 The layout, logo, desktop navigation and route placeholders are Server
-Components. Only header scroll state and the mobile menu use Client Components.
+Components. The hero is also a Server Component. Only header scroll state,
+the mobile menu and optional image-load failure handling use Client Components.
 There are no extra libraries for animation, UI or state management.
 
 ## Navigation and brand
@@ -48,8 +51,9 @@ ivory backing so it remains usable over future dark imagery.
 The fixed header starts with a transparent bar and neutral backing behind the
 logo and controls. After 32px of scrolling it becomes compact with an ivory
 background. Its reserved layout height stays constant to prevent content jumps.
-For the future split hero, extend the hero behind this reserved header area;
-the hero itself has not been implemented.
+The shared `--header-height` variable lets the hero extend behind the reserved
+header area without duplicating or redesigning navigation. Other routes still
+keep the reserved header space.
 
 At 1024px and above, the four links appear horizontally. Below that breakpoint,
 the menu toggle opens a native modal dialog. The menu supports focus cycling,
@@ -91,7 +95,43 @@ and 12 columns from 1200px. Typography and section spacing scale fluidly.
 
 ## Next phase
 
-Obtain approved imagery and develop the final hero in a separate phase.
+Supply approved hero photography and confirm its crop. Further homepage
+sections and motion design remain separate phases.
+
+## Hero
+
+`src/components/sections/hero.tsx` contains the requested Norwegian microcopy,
+two-line H1, company description, project CTA and location label. The desktop
+layout uses a 49/51 split from 1024px, with dark media on the left and ivory
+content on the right. Below that breakpoint the reading order is text, CTA,
+location and media. Typography reuses the design system's font, weight,
+tracking and line-height tokens with a size adapted to the panel width.
+
+The hero uses `min-height: 100svh` and content-driven sizing: short windows and
+larger text can expand its height instead of clipping content. The CTA has a
+thin rule, a simple arrow, a visible focus state and a small hover transition
+that is disabled under reduced motion. No entrance animation is applied.
+
+Photography belongs at `public/images/hero/hero-craft.webp`. This file is
+currently absent, so the hero shows a dark architectural CSS placeholder and
+makes no request for a missing image. Add the file and rebuild to activate it.
+The image uses `next/image`, `fill`, responsive `sizes`, cover fitting and
+`object-position: 45% 50%`. It is preloaded because it is above the fold on
+desktop. Its empty alt marks it as decorative beside the complete text content.
+Review the crop and alt decision when the approved photograph is available.
+An image-load failure removes only the image, retaining the same panel geometry
+and CSS placeholder. No filters or overlays are applied to photography.
+
+The original logo is unchanged. The optional decorative G is omitted because
+the provided asset includes the full wordmark.
+
+Phase 03 validation: ESLint (zero warnings), TypeScript and production build
+passed. Layout checks covered 320px, 375px, 768px, 1024px (600px-tall window),
+1280px and 1440px widths. The corrected layouts have no horizontal overflow or
+heading overflow. Production checks confirmed the project CTA, visible keyboard
+focus, the mobile menu and Escape, and no console errors or warnings. The missing
+photograph produces no broken-image request. Actual photo loading, final crop
+and load-failure recovery still need verification with the approved asset.
 
 ## Known tooling limitations
 

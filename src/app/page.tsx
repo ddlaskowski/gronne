@@ -1,18 +1,9 @@
-import { Container } from "@/components/layout/container";
+import { Hero } from "@/components/sections/hero";
 
 export default function Home() {
   return (
-    <main id="main-content" tabIndex={-1} className="foundation-page">
-      <Container>
-        <div className="layout-grid">
-          <div className="foundation-copy">
-            <h1 className="type-section">Grønne Mur og Flis AS</h1>
-            <p className="type-body text-muted foundation-description">
-              Flislegging, baderomsarbeid, mur og puss samt betongarbeid i Oslo og omegn.
-            </p>
-          </div>
-        </div>
-      </Container>
+    <main id="main-content" tabIndex={-1}>
+      <Hero />
     </main>
   );
 }
