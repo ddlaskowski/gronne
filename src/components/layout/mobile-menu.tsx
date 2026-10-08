@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, type KeyboardEvent, type RefObject } from "react";
 import { navigationItems } from "@/lib/navigation";
 
@@ -11,6 +12,7 @@ type MobileMenuProps = {
 };
 
 export function MobileMenu({ dialogRef, open, onClose }: MobileMenuProps) {
+  const pathname = usePathname();
   function keepFocusInMenu(event: KeyboardEvent<HTMLDialogElement>) {
     if (event.key !== "Tab") return;
     const controls = event.currentTarget.querySelectorAll<HTMLElement>("button, a[href]");
@@ -55,7 +57,7 @@ export function MobileMenu({ dialogRef, open, onClose }: MobileMenuProps) {
         <ul>
           {navigationItems.map(({ href, label }) => (
             <li key={href}>
-              <Link href={href} className="mobile-navigation-link" onClick={() => dialogRef.current?.close()}>{label}</Link>
+              <Link href={href} className="mobile-navigation-link" aria-current={pathname === href ? "page" : undefined} onClick={() => dialogRef.current?.close()}>{label}</Link>
             </li>
           ))}
         </ul>

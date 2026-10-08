@@ -1,6 +1,6 @@
 # Grønne Mur og Flis AS
 
-Phase 14: editorial Contact page for gronne-murogflis.no.
+Phase 15: global UX and navigation audit for gronne-murogflis.no.
 The homepage contains the hero, introduction, services, featured craft, selected projects,
 about preview and contact CTA. A shared footer closes every route.
 Services, Projects, About and Contact have complete editorial layouts in Norwegian Bokmål.
@@ -37,8 +37,8 @@ on a clean checkout. Google Fonts must be reachable during the first build;
 - `src/lib`: shared navigation destinations and typed project-gallery data.
 - `public/brand`, `public/images/{hero,projects,services}`: reserved asset directories.
 
-The layout, logo, desktop navigation and route placeholders are Server
-Components. The hero is also a Server Component. Only header scroll state,
+The layout, logo and route placeholders are Server Components. The hero is also
+a Server Component. Header scroll state, desktop active-route navigation,
 the mobile menu and optional image-load failure handling use Client Components.
 There are no extra libraries for animation, UI or state management.
 
@@ -565,6 +565,41 @@ telephone/email URI destinations, shared navigation and homepage Contact CTA
 navigation were checked; external phone/email applications were not launched.
 Reduced-motion rendering has no page animations or transitions. No remaining
 page issues were found.
+
+## Global UX and navigation audit — Phase 15
+
+The existing Header, mobile dialog, Footer, page links and CTAs were audited
+before changes. All five routes at 375, 768, 1024 and 1440px passed the baseline
+checks for overflow, text clipping, link targets, focus rings, footer count,
+fixed-header stability and route scroll positioning. The actual issue found was
+the absence of a current-page indication in desktop and mobile navigation.
+
+`Navigation` now uses `usePathname` to set `aria-current="page"` on the matching
+link; the existing client-side `MobileMenu` uses the same exact-route check.
+`src/styles/navigation.css` adds only a fine, persistent underline for these
+links. The indication updates after client navigation. No menu link is marked
+current on the homepage because its destination is the separate logo link.
+No working menu, footer, scroll or CTA behavior was refactored. Page content,
+layouts, photography, tokens, logo sizes and existing interactions are unchanged.
+No animations or dependencies were added.
+
+The native mobile dialog retains Escape and close-button behavior, focus cycling,
+focus restoration, background scroll locking and pointer blocking. It closes on
+link selection and when resizing to desktop. Short 320px-high mobile viewports
+retain a scrollable menu. The fixed header compacts without moving main content.
+Header, footer, logo and CTA navigation to a different route starts at the top;
+native browser history scroll restoration is retained.
+
+Final browser checks passed all 20 route/viewport combinations, including active
+route updates, visible keyboard focus, 44px page/footer link targets, skip links,
+reduced-motion behavior, modal interaction blocking and short-screen usability.
+No console errors or duplicate footers were observed. Desktop and mobile active
+navigation were visually reviewed. ESLint, TypeScript and the production build
+passed. Production preview:
+`http://localhost:3010` (port 3010). Telephone/email URI targets are verified;
+external applications are not launched. Real screen-reader announcements and
+physical iOS/Android touch behavior need manual device testing. The Phase 13
+client terminology review remains outstanding; no service wording was changed.
 
 ## Known tooling limitations
 

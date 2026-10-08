@@ -116,6 +116,11 @@
 
   .mobile-menu li:last-child { border-bottom: 1px solid var(--border); }
   .navigation-link:hover, .mobile-navigation-link:hover { text-decoration: underline; }
+  .navigation-link[aria-current="page"], .mobile-navigation-link[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.35em;
+  }
 
   .skip-link {
     position: fixed;
