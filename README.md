@@ -1,9 +1,9 @@
 # Grønne Mur og Flis AS
 
-Phase 08: about preview section for gronne-murogflis.no.
-The homepage contains the hero, introduction, services, featured craft, selected projects and about preview;
-the four navigation destinations remain minimal
-Norwegian Bokmål placeholders. Other homepage sections belong to later phases.
+Phase 09: contact CTA and global footer for gronne-murogflis.no.
+The homepage contains the hero, introduction, services, featured craft, selected projects,
+about preview and contact CTA. A shared footer closes every route.
+The four navigation destinations remain minimal Norwegian Bokmål placeholders.
 
 ## Development
 
@@ -31,9 +31,9 @@ on a clean checkout. Google Fonts must be reachable during the first build;
 
 - `src/app`: root layout, metadata, global styles and homepage.
 - `src/styles/tokens.css`: palette, semantic colors, spacing, type and layout tokens.
-- `src/components/layout`: header, navigation, mobile menu and responsive container.
+- `src/components/layout`: header, navigation, mobile menu, responsive container and global footer.
 - `src/components/ui`: original brand logo.
-- `src/components/sections`: hero, image loader, introduction, services, featured craft, selected projects and about preview.
+- `src/components/sections`: hero, image loader, introduction, services, featured craft, selected projects, about preview and contact CTA.
 - `src/lib`: shared navigation destinations.
 - `public/brand`, `public/images/{hero,projects,services}`: reserved asset directories.
 
@@ -99,7 +99,7 @@ and 12 columns from 1200px. Typography and section spacing scale fluidly.
 
 ## Next phase
 
-Further homepage sections and motion design remain separate phases.
+Approved project photography and subpage content can be integrated in future phases.
 
 ## Hero
 
@@ -347,6 +347,50 @@ their styles, navigation styles, design tokens and About subpage are unchanged.
 Screenshots are outside the repository; section captures hide the fixed header
 only during capture. No outstanding section issues were found. No dependencies,
 Contact, Footer or subpage changes were added.
+
+## Contact CTA and global footer
+
+`src/components/sections/contact-cta.tsx` is a Server Component immediately
+after About Preview on the homepage. It uses only the supplied section label,
+two-line H2, paragraph, `TA KONTAKT ↗` link to `/kontakt` and phone number.
+`src/styles/contact-cta.css` reuses the charcoal/paper colors, grid, fonts,
+spacing and regular-weight typography tokens. Desktop starts the headline at
+column 2, with supporting copy in columns 2–5 and actions in columns 9–12.
+Tablet uses a full-width headline with two smaller areas beneath. Mobile follows
+the order label, headline, paragraph, CTA and phone. Heading size is 32px on the
+tested mobiles, 53.76px at 768px and 108px at 1440px, with a maximum of 112px.
+
+`src/components/layout/footer.tsx` is a Server Component rendered exactly once
+after route content in `src/app/layout.tsx`. It appears on the homepage and all
+four placeholder subpages. `src/styles/footer.css` uses the same charcoal
+background, thin dividers and horizontal editorial rows: company/location,
+contact links, then navigation/copyright. Mobile stacks identity and contact
+details and allows navigation to wrap. Navigation reuses `navigationItems`.
+The footer includes only the supplied company name, Oslo og omegn, phone and
+email; the copyright year is evaluated when the server renders/builds the page.
+
+Both telephone links use `tel:+4747153017`; email uses
+`mailto:slawek.kalemba@gmail.com`. The labelled Contact section uses an H2,
+and the footer uses semantic `footer`, `address` and a distinct `Bunnmeny` nav.
+Links have a minimum 44px target height. Scoped paper focus rings retain visible
+keyboard focus on charcoal without changing earlier sections. No forms, icons,
+new dependencies, animations or transitions were introduced.
+
+Phase 09 validation: ESLint (zero warnings), TypeScript and production build
+passed. The fresh production preview reported port 3004 and returned HTTP 200
+at `http://localhost:3004`. Browser checks and visual review covered 1440 × 900,
+768 × 1024, 393 × 852 and 320 × 700. All sizes confirmed the Contact section
+after About Preview, one footer immediately after main content, two headline
+lines, no horizontal overflow or clipped text, and the exact telephone/email
+URLs. Contact CTA keyboard navigation opened `/kontakt`. All four footer links
+were followed at every size; each destination displayed its existing H1 and
+exactly one global footer, with no homepage Contact section. Every new link was
+keyboard-focusable with a visible paper outline. Supporting text contrast measured
+approximately 11.1:1 and footer metadata 9.2:1. Normal and reduced-motion styles
+have no animations/transitions. No console or application errors were observed.
+Hashes of all 19 previously completed section/style/subpage files are unchanged.
+Screenshots were saved outside the repository, with the fixed header hidden only
+during section captures. No outstanding issues were found for this phase.
 
 ## Known tooling limitations
 

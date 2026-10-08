@@ -4,6 +4,7 @@ import { Services } from "@/components/sections/services";
 import { FeaturedCraft } from "@/components/sections/featured-craft";
 import { SelectedProjects } from "@/components/sections/selected-projects";
 import { AboutPreview } from "@/components/sections/about-preview";
+import { ContactCta } from "@/components/sections/contact-cta";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <FeaturedCraft />
       <SelectedProjects />
       <AboutPreview />
+      <ContactCta />
     </main>
   );
 }

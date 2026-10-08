@@ -7,6 +7,8 @@
 @import "../styles/featured-craft.css";
 @import "../styles/selected-projects.css";
 @import "../styles/about-preview.css";
+@import "../styles/contact-cta.css";
+@import "../styles/footer.css";
 
 @theme inline {
   --color-background: var(--background);

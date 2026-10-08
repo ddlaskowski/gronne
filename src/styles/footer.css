@@ -1,0 +1,62 @@
+@layer components {
+  .site-footer {
+    --focus-ring: var(--foreground-inverse);
+    --footer-rule: color-mix(in srgb, var(--foreground-inverse) 24%, var(--color-charcoal));
+    background: var(--color-charcoal);
+    color: var(--foreground-inverse);
+    padding-bottom: var(--space-32);
+  }
+
+  .footer-content { border-top: 1px solid var(--footer-rule); padding-top: var(--space-48); }
+  .footer-identity { display: flex; flex-direction: column; gap: var(--space-16); }
+
+  .footer-company {
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+  }
+
+  .footer-location, .footer-copyright {
+    color: color-mix(in srgb, var(--foreground-inverse) 72%, var(--color-charcoal));
+  }
+
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    margin-top: var(--space-24);
+    font-style: normal;
+  }
+
+  .footer-contact a, .footer-navigation a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .footer-contact a { overflow-wrap: anywhere; }
+  .footer-contact a:hover, .footer-navigation a:hover { text-decoration: underline; }
+
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+    margin-top: var(--space-32);
+    padding-top: var(--space-24);
+    border-top: 1px solid var(--footer-rule);
+  }
+
+  .footer-navigation { display: flex; flex-wrap: wrap; column-gap: var(--space-24); row-gap: var(--space-4); }
+
+  @media (min-width: 48rem) {
+    .footer-identity { flex-direction: row; align-items: baseline; justify-content: space-between; gap: var(--space-32); }
+    .footer-contact { flex-direction: row; flex-wrap: wrap; column-gap: var(--space-32); }
+    .footer-bottom { gap: var(--space-16); }
+  }
+
+  @media (min-width: 75rem) {
+    .footer-bottom { flex-direction: row; align-items: center; justify-content: space-between; gap: var(--space-32); }
+  }
+}
