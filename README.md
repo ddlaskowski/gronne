@@ -1,6 +1,6 @@
 # Grønne Mur og Flis AS
 
-Phase 12: editorial About page for gronne-murogflis.no.
+Phase 13: service content alignment for gronne-murogflis.no.
 The homepage contains the hero, introduction, services, featured craft, selected projects,
 about preview and contact CTA. A shared footer closes every route.
 Services, Projects and About have complete editorial layouts; Contact remains a minimal Norwegian Bokmål placeholder.
@@ -511,6 +511,34 @@ working contact navigation and one global footer. Reduced-motion rendering has
 no new animations or transitions. Homepage, Services, Projects, Header and Footer
 sources are unchanged. Preview: `http://localhost:3007/om-oss` (port 3007).
 Approved photography remains pending. No dependencies were added.
+
+## Content alignment — Phase 13
+
+The homepage, Services and About pages now use the same ordered groups:
+`BAD & FLIS` (Baderom · Flislegging · Membranarbeid), `MUR & PUSS`
+(Murarbeid · Sementpuss · Mineralpuss), and `AVRETTING & FORSKALING`
+(Betongavretting · Avrettingsmasser · Forskaling). Hero and About Preview copy
+name the confirmed services; broad claims about general concrete work are removed.
+Services descriptions cover baderomsarbeid/flislegging/membranarbeid, confirmed
+cement/mineral plaster work, and betongavretting/avrettingsmasser/forskaling.
+Projects introductory copy acknowledges that photographs are pending; its gallery
+and placeholders are unchanged. Page descriptions and the default SEO title use
+accurate service terminology and Oslo og omegn without speculative masonry claims.
+
+**Client review required:** `Murarbeid` remains only in the requested `MUR & PUSS`
+keyword lists on the homepage, Services and About pages. Its scope has not been
+confirmed by the supplied service list. The Services description makes only the
+confirmed sementpuss/mineralpuss claims. Confirm whether `Murarbeid` is appropriate
+and clarify the client's term `murprofil` before expanding or changing this wording.
+`Murprofil` is not published or interpreted.
+
+No CSS, grid, font, palette, spacing, header/footer component, placeholder or
+interaction changes were needed. ESLint, TypeScript and the production build passed.
+Browser checks covered the homepage, Services, About, Projects and Contact at
+375, 768, 1024 and 1440px. All 20 page/viewport combinations passed without
+horizontal overflow, clipped text, console errors or duplicate footers. Updated
+headings wrap naturally; contact/About CTAs and shared navigation work by keyboard.
+Production preview: `http://localhost:3008` (port 3008).
 
 ## Known tooling limitations
 

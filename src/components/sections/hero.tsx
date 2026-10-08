@@ -7,12 +7,12 @@ export function Hero() {
     <section className="hero" aria-labelledby="hero-heading">
       <div className="hero-copy-panel">
         <div className="hero-copy">
-          <p className="type-label text-muted">FLIS · MUR · PRESISJON</p>
+          <p className="type-label text-muted">FLIS · PUSS · PRESISJON</p>
           <h1 id="hero-heading" className="hero-heading">
             <span>Fra håndverk</span><span>til ferdig rom.</span>
           </h1>
           <p className="hero-description type-body text-muted">
-            Grønne Mur og Flis AS utfører flislegging, baderomsarbeid, mur og puss samt betongarbeid i Oslo og omegn.
+            Grønne Mur og Flis AS utfører flislegging, baderomsarbeid, membranarbeid, avretting, forskaling og pussarbeid i Oslo og omegn.
           </p>
           <Link href="/prosjekter" className="hero-cta type-label">
             SE VÅRE PROSJEKTER

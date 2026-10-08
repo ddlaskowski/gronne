@@ -4,12 +4,15 @@ import { Container } from "@/components/layout/container";
 import { AboutCraft } from "@/components/sections/about-craft";
 import "@/styles/about-page.css";
 
-export const metadata: Metadata = { title: "Om oss | Grønne Mur og Flis AS" };
+export const metadata: Metadata = {
+  title: "Om oss | Grønne Mur og Flis AS",
+  description: "Bli kjent med Grønne Mur og Flis AS og vårt arbeid med baderom, flislegging, membraner, avretting, forskaling og puss i Oslo og omegn.",
+};
 
 const serviceGroups = [
   { name: "BAD & FLIS", keywords: "Baderom · Flislegging · Membranarbeid" },
+  { name: "MUR & PUSS", keywords: "Murarbeid · Sementpuss · Mineralpuss" },
   { name: "AVRETTING & FORSKALING", keywords: "Betongavretting · Avrettingsmasser · Forskaling" },
-  { name: "PUSSARBEID", keywords: "Sementpuss · Mineralpuss" },
 ] as const;
 
 export default function AboutPage() {

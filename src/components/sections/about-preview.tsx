@@ -12,8 +12,9 @@ export function AboutPreview() {
           </h2>
           <div className="about-preview-copy">
             <p className="about-preview-description type-body">
-              Grønne Mur og Flis AS utfører flislegging, murarbeid og betongarbeid
-              i Oslo og omegn. Vi legger vekt på tydelig kommunikasjon, godt
+              Grønne Mur og Flis AS utfører flislegging, baderomsarbeid,
+              membranarbeid, avretting, forskaling og pussarbeid i Oslo og omegn.
+              Vi legger vekt på tydelig kommunikasjon, godt
               håndverk og løsninger tilpasset prosjektet.
             </p>
             <Link href="/om-oss" className="about-preview-cta type-label">

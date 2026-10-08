@@ -6,7 +6,10 @@ import { Container } from "@/components/layout/container";
 import { projects, type ProjectEntry } from "@/lib/projects";
 import "@/styles/projects-page.css";
 
-export const metadata: Metadata = { title: "Prosjekter | Grønne Mur og Flis AS" };
+export const metadata: Metadata = {
+  title: "Prosjekter | Grønne Mur og Flis AS",
+  description: "Prosjektbilder fra Grønne Mur og Flis AS kommer. Kontakt oss om flislegging, avretting, forskaling og pussarbeid i Oslo og omegn.",
+};
 
 const imageSizes: Record<ProjectEntry["composition"], string> = {
   lead: "(min-width: 1600px) 1189px, (min-width: 1200px) 75vw, 100vw",
@@ -24,7 +27,8 @@ export default function ProjectsPage() {
             <p className="projects-page-label type-label">02 / PROSJEKTER</p>
             <h1 className="projects-page-heading">Arbeidet vårt.</h1>
             <p className="projects-page-description type-body">
-              Et utvalg av arbeider innen flislegging, mur og betong.
+              Prosjektbilder kommer. Vi utfører flislegging, avretting,
+              forskaling og pussarbeid i Oslo og omegn.
             </p>
           </div>
         </Container>

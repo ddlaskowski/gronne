@@ -5,6 +5,7 @@ import "@/styles/services-page.css";
 
 export const metadata: Metadata = {
   title: "Tjenester | Grønne Mur og Flis AS",
+  description: "Flislegging, baderomsarbeid og membranarbeid, betongavretting og forskaling samt sement- og mineralpuss i Oslo og omegn.",
 };
 
 type Service = {
@@ -20,22 +21,22 @@ const services: readonly Service[] = [
     id: "bad-og-flis",
     number: "01",
     name: "BAD & FLIS",
-    keywords: "Baderom · Flislegging · Membran",
-    description: "Vi utfører flislegging og arbeid med baderom og våtrom, med vekt på nøyaktig utførelse og gode løsninger.",
+    keywords: "Baderom · Flislegging · Membranarbeid",
+    description: "Vi utfører baderomsarbeid, flislegging og membranarbeid med vekt på nøyaktig utførelse.",
   },
   {
     id: "mur-og-puss",
     number: "02",
     name: "MUR & PUSS",
-    keywords: "Murarbeid · Pussarbeid",
-    description: "Vi utfører mur- og pussarbeid med fokus på solide overflater, presisjon og et gjennomført resultat.",
+    keywords: "Murarbeid · Sementpuss · Mineralpuss",
+    description: "Vi utfører pussarbeid med sementpuss og mineralpuss, med oppmerksomhet på overflaten og detaljene.",
   },
   {
     id: "betong-og-forskaling",
     number: "03",
-    name: "BETONG & FORSKALING",
-    keywords: "Betongarbeid · Forskaling",
-    description: "Vi utfører betong- og forskalingsarbeid tilpasset prosjektets behov.",
+    name: "AVRETTING & FORSKALING",
+    keywords: "Betongavretting · Avrettingsmasser · Forskaling",
+    description: "Vi utfører betongavretting med avrettingsmasser og forskalingsarbeid tilpasset prosjektets behov.",
   },
 ];
 
@@ -50,8 +51,8 @@ export default function ServicesPage() {
               <span>Håndverk som</span>{" "}<span>varer.</span>
             </h1>
             <p className="services-page-hero-description type-body">
-              Fra flislegging og baderom til murarbeid og betong. Vi leverer
-              løsninger med fokus på presisjon og kvalitet.
+              Fra baderom, flislegging og membranarbeid til avretting,
+              forskaling og pussarbeid. Håndverk i Oslo og omegn.
             </p>
           </div>
         </Container>

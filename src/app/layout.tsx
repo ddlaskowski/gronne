@@ -19,9 +19,9 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://gronne-murogflis.no"),
-  title: "Grønne Mur og Flis AS | Flis og murarbeid i Oslo",
+  title: "Grønne Mur og Flis AS | Flislegging og pussarbeid i Oslo",
   description:
-    "Grønne Mur og Flis AS utfører flislegging, baderomsarbeid, mur og puss samt betongarbeid i Oslo og omegn.",
+    "Grønne Mur og Flis AS utfører flislegging, baderomsarbeid, membranarbeid, avretting, forskaling og pussarbeid i Oslo og omegn.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

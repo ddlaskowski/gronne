@@ -7,9 +7,9 @@ type Service = {
 };
 
 const services: readonly Service[] = [
-  { number: "01", name: "BAD & FLIS", specializations: "Baderom · Flislegging · Membran" },
-  { number: "02", name: "MUR & PUSS", specializations: "Murarbeid · Pussarbeid" },
-  { number: "03", name: "BETONG & FORSKALING", specializations: "Betongarbeid · Forskaling" },
+  { number: "01", name: "BAD & FLIS", specializations: "Baderom · Flislegging · Membranarbeid" },
+  { number: "02", name: "MUR & PUSS", specializations: "Murarbeid · Sementpuss · Mineralpuss" },
+  { number: "03", name: "AVRETTING & FORSKALING", specializations: "Betongavretting · Avrettingsmasser · Forskaling" },
 ];
 
 export function Services() {
