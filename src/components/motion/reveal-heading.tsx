@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type ComponentPropsWithoutRef } from "react";
 import { revealMotion } from "@/lib/motion";
-import { loadGsap } from "@/lib/gsap-client";
+import { createMotionContext, loadGsap } from "@/lib/gsap-client";
 
 type RevealHeadingProps = ComponentPropsWithoutRef<"h2"> & {
   as?: "h2" | "h3";
@@ -34,9 +34,8 @@ export function RevealHeading({
       if (disposed || !heading) return;
 
       gsap.registerPlugin(ScrollTrigger);
-      const media = gsap.matchMedia();
-      revert = () => media.revert();
-      media.add("(prefers-reduced-motion: no-preference)", () => {
+      revert = createMotionContext(gsap, heading, (motionAllowed) => {
+        if (!motionAllowed) return;
         // History restoration or late loading must never re-hide visible content.
         if (revealed.current || heading.getBoundingClientRect().top <= innerHeight * 0.85) return;
         gsap.from(heading, {
@@ -52,7 +51,7 @@ export function RevealHeading({
             once: true,
           },
         });
-      }, heading);
+      });
     }
 
     // Runtime/import failures keep the original visible server-rendered content.

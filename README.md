@@ -1,6 +1,6 @@
 # Grønne Mur og Flis AS
 
-Phase 19: architectural image reveal foundation for gronne-murogflis.no.
+Phase 20: stable GSAP lifecycle and live reduced-motion handling for gronne-murogflis.no.
 The homepage contains the hero, introduction, services, featured craft, selected projects,
 about preview and contact CTA. A shared footer closes every route.
 Services, Projects, About and Contact have complete editorial layouts in Norwegian Bokmål.
@@ -775,15 +775,81 @@ suggests no unacceptable stutter in the desktop/headless mobile-viewport test;
 physical iOS/Android GPU performance and approved-photo rendering remain untested.
 Browser scripts, diagnostics and screenshots are outside the repository.
 
-Known limitation: changing reduced motion while homepage reveals are running
-can reset scroll position to the top through the existing GSAP matchMedia/
-ScrollTrigger lifecycle. An isolated browser comparison disabling the new image
-effect reproduced the same jump. The image remains immediately visible and does
-not replay, but the existing typography lifecycle was preserved as required.
-Normal scrolling and route/history navigation checks passed. This shared motion
-foundation issue needs a separate fix that can include existing heading behavior.
+Phase 19 identified a scroll-to-top issue when reduced motion changed during
+homepage reveals, also reproduced with the image effect disabled. Phase 20
+resolves this shared lifecycle issue; its implementation supersedes the GSAP
+matchMedia lifecycle described above while preserving the image choreography.
 
 Production preview: `http://localhost:3014` (port 3014).
+
+## GSAP lifecycle and reduced-motion stability — Phase 20
+
+The scroll reset was reproduced at 375, 768, 1024 and 1440px before scrolling,
+during Hero, heading and image reveals, and after reveals finished. The initial
+zero position stayed zero; every tested nonzero position reset to zero. For
+example, the 375px image test changed from 1819px to 0px. DOM mutation tracking
+showed no child replacements or remounts, the media element identity stayed the
+same, focus stayed unchanged, and the route did not change.
+
+Runtime traces and the installed GSAP 3.15.0 source identified the exact path:
+GSAP's `matchMediaInit` makes ScrollTrigger record the current scroll position
+and globally revert its triggers. Reverting the component contexts kills those
+triggers; `ScrollTrigger.kill()` clears the recorded scroller position when the
+last trigger is removed. The subsequent GSAP `matchMedia` event calls
+ScrollTrigger's global `_refreshAll(0, 1)`, which resets scrollers to zero for
+measurement. With the saved record cleared, the previous position is not restored.
+The trace recorded 1819px at `matchMediaInit`, a zero saved record at
+`matchMediaRevert`, and actual GSAP scroll-to-zero calls during the refresh.
+This was a global matchMedia/ScrollTrigger lifecycle interaction, rather than
+React remounting, focus restoration, geometry changes or browser navigation.
+
+`src/lib/gsap-client.ts` now exports `createMotionContext`. It uses native
+`MediaQueryList` change events and a scoped `gsap.context()` for each component.
+Preference changes revert only owned animation/styles and invoke that component's
+existing animation callback with the current motion permission. This avoids the
+GSAP global matchMedia events and their refresh path. Disposal removes the native
+listener and reverts the context; initialization errors also clean up the context
+and listener. The cached loader, font-ready wait and component cancellation guards
+are preserved. There is no application scroll-position capture/restoration,
+`window.scrollTo()` workaround, global trigger kill or dependency change.
+
+Files changed: `src/lib/gsap-client.ts`, `hero-entrance.tsx`,
+`reveal-heading.tsx`, `reveal-image.tsx` (under `src/components/motion`) and this
+README. All three motion components use the shared helper. Hero timeline order,
+durations and offsets, all seven heading settings, and the 1.1-second clip-path
+image reveal are unchanged. CSS, content, SEO, Header/Footer and galleries are
+unchanged. Reduced motion immediately clears owned styles and removes active
+tweens/triggers. Hero's existing focus completion and once-started behavior remain.
+
+Production Edge regression checks passed at every required width:
+
+- All 20 stage/viewport combinations retained their exact scroll position when
+  reduced motion was enabled and disabled. During image reveals the stable
+  positions were 1819, 1903, 1907 and 2345px respectively. The old global GSAP
+  matchMedia events and scroll-to-zero calls were absent during reduction.
+- All seven headings were interrupted individually; content became visible,
+  scroll stayed stable, and enabling motion did not re-hide visible headings.
+- Hero timeline starts/durations/offsets and image trigger/tween settings matched
+  the preceding phases. Keyboard Tab focus showed the 2px focus outline, finished
+  the Hero entrance, and Enter followed its existing CTA destination.
+- Nine native motion listeners were present per homepage mount and zero after
+  leaving. Repeated mounts, unmounts during reveals, delayed imports, rapid
+  navigation and back/forward had no duplicate triggers/timelines, detached
+  owned tweens or stale opacity/transform/clip-path styles.
+- Mobile menu locking/Escape worked during a preference change. Subpages retained
+  no motion listeners/triggers and one footer. Section/media geometry and document
+  height stayed unchanged, with no overflow, text clipping or console errors.
+- Fresh reduced-motion, disabled-JavaScript and blocked-script contexts kept
+  all Hero text, reveal headings and media visible. Enabling motion after an
+  initially reduced visit preserved scroll and kept Hero content visible.
+
+ESLint, TypeScript and the production build passed. Test-only runtime tracing,
+scripts, JSON results and screenshots remain outside the repository; no browser
+diagnostics are shipped. No known reduced-motion scroll reset remains in the
+tested Edge scenarios. Physical iOS/Android and Safari/Firefox behavior remain
+manual verification, as does assistive-technology testing.
+
+Production preview: `http://localhost:3015` (port 3015).
 
 ## Known tooling limitations
 

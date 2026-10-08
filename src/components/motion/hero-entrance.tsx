@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type ComponentPropsWithoutRef } from "react";
 import type { gsap } from "gsap";
-import { loadGsap } from "@/lib/gsap-client";
+import { createMotionContext, loadGsap } from "@/lib/gsap-client";
 import { revealMotion } from "@/lib/motion";
 
 export function HeroEntrance({ onFocusCapture, ...props }: ComponentPropsWithoutRef<"div">) {
@@ -18,16 +18,11 @@ export function HeroEntrance({ onFocusCapture, ...props }: ComponentPropsWithout
       const gsap = await loadGsap();
       const scope = scopeRef.current;
       if (disposed || !scope) return;
-      const media = gsap.matchMedia();
-      revert = () => media.revert();
-      media.add({
-        motion: "(prefers-reduced-motion: no-preference)",
-        reduced: "(prefers-reduced-motion: reduce)",
-      }, (context) => {
+      revert = createMotionContext(gsap, scope, (motionAllowed) => {
         // A changed preference never re-hides content that has already been shown.
         if (started.current) return;
         started.current = true;
-        if (context.conditions?.reduced || scope.getBoundingClientRect().bottom <= 0) return;
+        if (!motionAllowed || scope.getBoundingClientRect().bottom <= 0) return;
         const eyebrow = scope.querySelector(".type-label");
         const headline = scope.querySelector(".hero-heading");
         const description = scope.querySelector(".hero-description");
@@ -42,7 +37,7 @@ export function HeroEntrance({ onFocusCapture, ...props }: ComponentPropsWithout
           .from(description, { opacity: 0, y: 16, duration: 0.75, clearProps: "transform,opacity" }, 0.55)
           .from(cta, { opacity: 0, y: 12, duration: 0.65, clearProps: "transform,opacity" }, 0.75);
         return () => { timelineRef.current = null; };
-      }, scope);
+      });
     }
 
     void initialize().catch(() => revert?.());

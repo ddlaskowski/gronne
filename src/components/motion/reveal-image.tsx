@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ComponentPropsWithoutRef } from "react";
-import { loadGsap } from "@/lib/gsap-client";
+import { createMotionContext, loadGsap } from "@/lib/gsap-client";
 import { revealMotion } from "@/lib/motion";
 
 // The existing media div provides geometry; children can be a placeholder or Image.
@@ -22,9 +22,8 @@ export function RevealImage(props: ComponentPropsWithoutRef<"div">) {
       if (disposed || !element) return;
 
       gsap.registerPlugin(ScrollTrigger);
-      const media = gsap.matchMedia();
-      revert = () => media.revert();
-      media.add("(prefers-reduced-motion: no-preference)", () => {
+      revert = createMotionContext(gsap, element, (motionAllowed) => {
+        if (!motionAllowed) return;
         // Late loading and history restoration must not re-hide visible media.
         if (revealed.current || element.getBoundingClientRect().top <= innerHeight * 0.85) return;
         gsap.fromTo(element,
@@ -43,7 +42,7 @@ export function RevealImage(props: ComponentPropsWithoutRef<"div">) {
             },
           },
         );
-      }, element);
+      });
     }
 
     void initialize().catch(() => revert?.());
