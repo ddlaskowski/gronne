@@ -1,0 +1,80 @@
+@layer components {
+  .projects-page { background: var(--surface); color: var(--foreground); }
+  .projects-page-hero { padding-block: var(--section-space); background: var(--background); }
+  .projects-page-hero-grid.layout-grid { row-gap: var(--space-32); }
+
+  .projects-page-label, .projects-page-heading, .projects-page-description,
+  .projects-page-item, .projects-page-contact-heading, .projects-page-contact-link {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+
+  .projects-page-heading {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-heading);
+  }
+
+  .projects-page-description { max-width: 38ch; color: var(--text-muted); }
+  .projects-page-gallery { padding-block: clamp(var(--space-32), 5vw, var(--space-64)) var(--section-space); }
+  .projects-page-composition.layout-grid { row-gap: var(--space-32); align-items: start; }
+  .projects-page-item { margin: 0; }
+
+  .projects-page-media {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    aspect-ratio: var(--gallery-ratio-mobile);
+    padding: var(--space-24);
+    background: color-mix(in srgb, var(--color-stone) 30%, var(--color-ivory));
+  }
+
+  .projects-page-portrait .projects-page-media { background: color-mix(in srgb, var(--color-stone) 18%, var(--color-ivory)); }
+  .projects-page-landscape .projects-page-media { background: color-mix(in srgb, var(--color-stone) 24%, var(--color-ivory)); }
+  .projects-page-placeholder-label { font-size: var(--type-micro); }
+  .projects-page-image { object-fit: cover; object-position: var(--gallery-position-mobile); }
+  .projects-page-caption { margin-top: var(--space-24); }
+  .projects-page-metadata { margin-top: var(--space-8); color: var(--text-muted); }
+
+  .projects-page-contact {
+    --focus-ring: var(--foreground-inverse);
+    padding-block: clamp(var(--space-64), 8vw, var(--space-128));
+    background: var(--color-charcoal);
+    color: var(--foreground-inverse);
+  }
+
+  .projects-page-contact .layout-grid { row-gap: var(--space-32); align-items: center; }
+  .projects-page-contact-heading { max-width: 20ch; font-size: var(--type-section); font-weight: var(--weight-regular); line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); }
+  .projects-page-contact-link { justify-self: start; }
+
+  @media (min-width: 48rem) {
+    .projects-page-hero-grid.layout-grid { row-gap: var(--space-48); }
+    .projects-page-heading { grid-column: 2 / -1; }
+    .projects-page-description { grid-column: 3 / -1; }
+    .projects-page-composition.layout-grid { row-gap: var(--space-48); }
+    .projects-page-lead { grid-row: 1; }
+    .projects-page-portrait { grid-column: 1 / span 3; grid-row: 2; }
+    .projects-page-landscape { grid-column: 4 / -1; grid-row: 2; margin-top: var(--space-48); }
+    .projects-page-editorial { grid-row: 3; }
+    .projects-page-media { aspect-ratio: var(--gallery-ratio-tablet); }
+    .projects-page-image { object-position: var(--gallery-position-tablet); }
+    .projects-page-contact-heading { grid-column: 1 / span 4; }
+    .projects-page-contact-link { grid-column: 5 / -1; }
+  }
+
+  @media (min-width: 75rem) {
+    .projects-page-label { grid-column: 1 / span 3; padding-top: var(--space-12); }
+    .projects-page-heading { grid-column: 4 / -1; font-size: clamp(4rem, 7.5vw, 7rem); }
+    .projects-page-description { grid-column: 8 / -1; }
+    .projects-page-composition.layout-grid { row-gap: var(--space-96); }
+    .projects-page-lead { grid-column: 1 / span 10; }
+    .projects-page-portrait { grid-column: 1 / span 4; }
+    .projects-page-landscape { grid-column: 6 / -1; margin-top: var(--space-96); }
+    .projects-page-editorial { grid-column: 2 / -1; }
+    .projects-page-media { aspect-ratio: var(--gallery-ratio-desktop); padding: var(--space-32); }
+    .projects-page-image { object-position: var(--gallery-position-desktop); }
+    .projects-page-contact-heading { grid-column: 2 / span 7; }
+    .projects-page-contact-link { grid-column: 10 / -1; }
+  }
+}

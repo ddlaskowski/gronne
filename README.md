@@ -1,9 +1,9 @@
 # Grønne Mur og Flis AS
 
-Phase 10: editorial services page for gronne-murogflis.no.
+Phase 11: editorial projects page for gronne-murogflis.no.
 The homepage contains the hero, introduction, services, featured craft, selected projects,
 about preview and contact CTA. A shared footer closes every route.
-The Services page is complete; Projects, About and Contact remain minimal Norwegian Bokmål placeholders.
+Services and Projects have complete editorial layouts; About and Contact remain minimal Norwegian Bokmål placeholders.
 
 ## Development
 
@@ -34,7 +34,7 @@ on a clean checkout. Google Fonts must be reachable during the first build;
 - `src/components/layout`: header, navigation, mobile menu, responsive container and global footer.
 - `src/components/ui`: original brand logo.
 - `src/components/sections`: hero, image loader, introduction, services, featured craft, selected projects, about preview and contact CTA.
-- `src/lib`: shared navigation destinations.
+- `src/lib`: shared navigation destinations and typed project-gallery data.
 - `public/brand`, `public/images/{hero,projects,services}`: reserved asset directories.
 
 The layout, logo, desktop navigation and route placeholders are Server
@@ -439,6 +439,57 @@ animations/transitions. Hashes of all 27 previously completed homepage, layout,
 component and style files are unchanged. Existing user favicon changes were
 preserved. Screenshots were saved outside the repository, with the fixed header
 hidden only during section captures. No functional issues were found.
+
+## Projects page
+
+`src/app/prosjekter/page.tsx` replaces the placeholder with a Server Component
+and route-specific title. It uses the supplied light hero, one H1 (`Arbeidet vårt.`),
+supporting text, four static project surfaces and a restrained contact CTA.
+`src/styles/projects-page.css` is imported by the route and scopes all selectors
+to Projects classes, reusing the existing grid, container, palette, fonts and
+spacing. The CTA uses the existing contact-link styling and points to `/kontakt`.
+The global footer remains exclusively in the root layout.
+
+Desktop gallery row 1 places a dominant 16:10 landscape surface in columns 1–10.
+Row 2 pairs a 4:5 portrait in columns 1–4 with a 3:2 landscape in columns 6–12,
+offset down by 96px. Row 3 places a broad 16:9 surface in columns 2–12.
+Tablet uses full-width opening/closing surfaces and an equal-width middle pair
+with a reduced 48px offset. Mobile presents four full-width surfaces in source
+order at 4:3, 4:5, 3:2 and 4:3 ratios, separated by 32px. No gallery item is
+clickable and none has a hover transition, animation, lightbox or detail route.
+
+`src/lib/projects.ts` defines `ProjectEntry` and four technical gallery positions.
+Each entry supports `id`, a composition role, responsive aspect ratios, an optional
+image with `src`, descriptive `alt` and responsive `objectPosition`, plus optional
+`title`, `category` and `location`. Aspect ratios and positions have mobile,
+tablet and desktop values with smaller-breakpoint fallbacks. Default entries
+contain only layout information; there are no invented names or other metadata.
+
+When client-approved assets become available, populate `image` and any approved
+metadata in that file. The route renders `next/image` with `fill`, responsive
+`sizes` and cover fitting inside the same reserved aspect-ratio frame, avoiding
+image-loading layout shifts. Captions render only when an image and actual
+metadata are supplied. Review real-photo crops and alt text when integrating.
+Currently no gallery image file is requested, and all four stone/ivory surfaces
+display only `PROSJEKTFOTO KOMMER`.
+
+Phase 11 validation: ESLint (zero warnings), TypeScript and production build
+passed. The fresh production server reported port 3006 and returned HTTP 200 at
+`http://localhost:3006/prosjekter`. Browser checks and visual review covered
+1440 × 900, 768 × 1024, 393 × 852 and 320 × 700. All sizes confirmed the
+intended gallery placement/proportions, one H1, four placeholders, zero gallery
+images/captions/interactive elements, no overflow or clipped text, and one global
+footer immediately after main content. Placeholder-label contrast exceeds 13:1;
+supporting-copy contrast is approximately 7.8:1. The contact link has a visible
+paper keyboard focus outline and a 44px target height; Enter opened `/kontakt`.
+Footer navigation returned to Projects and reached the completed Services page,
+then the brand link reached the unchanged seven-section homepage. No console
+or application errors were observed. Normal and reduced-motion rendering have
+no new animations/transitions. Hashes of all 29 previously completed homepage,
+Services, layout, component and style files are unchanged. Screenshots were saved
+outside the repository, hiding the fixed header only during section captures.
+Approved project photographs and metadata remain pending; no functional issues
+were found. No dependencies were added.
 
 ## Known tooling limitations
 
