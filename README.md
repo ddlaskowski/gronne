@@ -1,6 +1,6 @@
 # Grønne Mur og Flis AS
 
-Phase 15: global UX and navigation audit for gronne-murogflis.no.
+Phase 16: motion design foundation for gronne-murogflis.no.
 The homepage contains the hero, introduction, services, featured craft, selected projects,
 about preview and contact CTA. A shared footer closes every route.
 Services, Projects, About and Contact have complete editorial layouts in Norwegian Bokmål.
@@ -39,8 +39,9 @@ on a clean checkout. Google Fonts must be reachable during the first build;
 
 The layout, logo and route placeholders are Server Components. The hero is also
 a Server Component. Header scroll state, desktop active-route navigation,
-the mobile menu and optional image-load failure handling use Client Components.
-There are no extra libraries for animation, UI or state management.
+the mobile menu, the Featured Craft reveal heading and optional image-load failure
+handling use Client Components. GSAP is used only for the Phase 16 heading reveal;
+there are no additional UI or state-management libraries.
 
 ## Navigation and brand
 
@@ -600,6 +601,49 @@ passed. Production preview:
 external applications are not launched. Real screen-reader announcements and
 physical iOS/Android touch behavior need manual device testing. The Phase 13
 client terminology review remains outstanding; no service wording was changed.
+
+## Motion foundation — Phase 16
+
+Installed `gsap` 3.15.0, using its bundled ScrollTrigger plugin. No React integration
+package or additional animation library is needed. `src/lib/motion.ts` provides
+simple reveal defaults: 0.9 seconds, 24px vertical offset, `power3.out`, and
+`top 85%`. `src/components/motion/reveal-heading.tsx` is a reusable client H2
+component. The Featured Craft section remains a Server Component, passing its
+existing headline into this boundary. Only that heading fades/moves; no other
+element, page, header/footer, layout, placeholder, content or SEO was changed.
+
+GSAP and ScrollTrigger load dynamically inside a React effect. Initialization
+waits for fonts, checks cancellation, and registers the plugin client-side.
+GSAP [matchMedia](https://gsap.com/docs/v3/GSAP/gsap.matchMedia()) scopes the tween
+and trigger to `prefers-reduced-motion: no-preference`. Its context reverts on
+preference changes and unmount, restoring inline styles and removing owned
+animations/triggers. No global kill/refresh configuration is used. A cancellation
+flag prevents delayed initialization after unmount. The reveal plays once per
+mount; it never replays on reverse scrolling. Already-visible/restored headings
+are left visible rather than re-hidden during late initialization.
+
+Server HTML and CSS have no hidden initial state. Disabled JavaScript, failed
+script loading and reduced motion leave the heading immediately readable.
+Initialization errors revert any work already created. Completed tweens clear
+their transform/opacity styles. Live reduced-motion changes revert pending
+reveals; content never depends on the animation.
+
+ESLint, TypeScript and production build passed. Production browser checks at
+375, 768, 1024 and 1440px verified exact settings, intermediate/completed states,
+one heading animated, no horizontal overflow/clipping, and unchanged surrounding
+layout positions. Fresh reduced-motion, disabled-JavaScript and blocked-script
+contexts remained visible at every width. Three repeated route cycles per width
+and back/forward navigation verified at most one homepage trigger and zero on
+subpages, without console errors or unexpected scroll jumps. QA accessed real
+GSAP registries through test-only response instrumentation outside the repository.
+No diagnostics were added to production code. Visual captures were also saved
+outside the repository.
+
+Preview: `http://localhost:3011` (port 3011). Physical iOS/Android motion smoothness
+and assistive-technology behavior remain manual checks. No functional issues
+were found. GSAP installation used the existing trusted certificate after the
+registry certificate error; TLS verification remained enabled. Existing tooling
+limitations below are unchanged.
 
 ## Known tooling limitations
 

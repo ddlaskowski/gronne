@@ -1,6 +1,7 @@
 import Image, { type StaticImageData } from "next/image";
 import type { CSSProperties } from "react";
 import { Container } from "@/components/layout/container";
+import { RevealHeading } from "@/components/motion/reveal-heading";
 
 type CraftImage = {
   src: string | StaticImageData;
@@ -24,9 +25,9 @@ export function FeaturedCraft({ image }: { image?: CraftImage }) {
         </div>
         <div className="featured-craft-grid layout-grid">
           <div className="featured-craft-copy">
-            <h2 id="featured-craft-heading" className="featured-craft-heading">
+            <RevealHeading id="featured-craft-heading" className="featured-craft-heading">
               <span>Presisjon i</span>{" "}<span>hver detalj.</span>
-            </h2>
+            </RevealHeading>
             <p className="featured-craft-description type-body">
               Vi legger vekt på godt håndverk, nøyaktig utførelse og løsninger som
               fungerer i praksis. Detaljene er en viktig del av helheten.
