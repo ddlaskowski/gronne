@@ -4,6 +4,7 @@
 @import "../styles/hero.css";
 @import "../styles/introduction.css";
 @import "../styles/services.css";
+@import "../styles/featured-craft.css";
 
 @theme inline {
   --color-background: var(--background);

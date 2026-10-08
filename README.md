@@ -1,7 +1,7 @@
 # Grønne Mur og Flis AS
 
-Phase 05: architectural services section for gronne-murogflis.no.
-The homepage contains the hero, introduction and services; the four navigation destinations remain minimal
+Phase 06: featured craft section for gronne-murogflis.no.
+The homepage contains the hero, introduction, services and featured craft; the four navigation destinations remain minimal
 Norwegian Bokmål placeholders. Other homepage sections belong to later phases.
 
 ## Development
@@ -32,7 +32,7 @@ on a clean checkout. Google Fonts must be reachable during the first build;
 - `src/styles/tokens.css`: palette, semantic colors, spacing, type and layout tokens.
 - `src/components/layout`: header, navigation, mobile menu and responsive container.
 - `src/components/ui`: original brand logo.
-- `src/components/sections`: hero, image loader, introduction and services.
+- `src/components/sections`: hero, image loader, introduction, services and featured craft.
 - `src/lib`: shared navigation destinations.
 - `public/brand`, `public/images/{hero,projects,services}`: reserved asset directories.
 
@@ -219,6 +219,48 @@ No application errors were observed; the existing missing `/favicon.ico` produce
 a browser resource 404. Section screenshots hide the fixed header only during
 capture; transition screenshots retain it. Hero, header and introduction are
 unchanged. No dependencies, detail pages or additional sections were added.
+
+## Featured craft
+
+`src/components/sections/featured-craft.tsx` is a Server Component immediately
+after Services. Its Norwegian headline and paragraph are proposed marketing copy,
+not independently verified claims. No project metadata or technical guarantees
+have been added.
+
+The section uses paper, charcoal and a neutral mix of existing stone and ivory
+tokens. A mono section label and thin divider precede the editorial composition.
+Desktop places the media in columns 1–7 and vertically centered copy in columns
+8–12, with an additional 16px text inset. The placeholder has a 5:4 ratio. Tablet
+uses equal three-column areas on the six-column grid and a 4:5 portrait placeholder.
+Mobile follows the DOM order: label, two-line H2, paragraph, then 4:3 placeholder.
+DM Sans scales from 40px on mobile to 72px at 1440px and a maximum of 88px.
+
+The intentional placeholder is a plain stone-toned surface with the readable
+IBM Plex Mono label `PROSJEKTFOTO KOMMER`. It uses no photograph, texture asset,
+gradient, icon, loading animation or missing image URL. There are no interactive
+elements, animations or transitions. Normal and reduced-motion rendering match.
+
+To integrate an approved photograph later, add the real asset (suggested location:
+`public/images/craft/featured-craft.webp`) and pass the optional `image` prop to
+`FeaturedCraft` in `src/app/page.tsx`. The configuration accepts `src` (a local
+URL or static import), meaningful Norwegian `alt` text describing the actual
+photo, and optional `position.mobile`, `position.tablet` and `position.desktop`
+CSS object-position strings. Positions default to centered. The configured image
+replaces the placeholder label through `next/image` with `fill`, responsive
+`sizes`, cover fitting and the same reserved aspect ratios. No image is configured
+or requested until an approved asset exists; its crop and alt text require review
+when supplied.
+
+Phase 06 validation: ESLint (zero warnings), TypeScript and production build
+passed. Production browser checks and visual review covered 1440 × 900,
+768 × 1024, 393 × 852 and 320 × 700. All sizes preserve two headline lines,
+correct column alignment, zero gap after Services, the intended aspect ratios,
+no horizontal overflow and no clipped copy. Measured contrast is approximately
+13:1 for the placeholder label and 8.2:1 for supporting text. No console or
+application errors were observed during this run. Normal and reduced-motion
+styles have no animations or transitions. Section screenshots hide the fixed
+header only during capture; transition screenshots retain it. Completed sections
+are unchanged, and no dependencies, extra routes or other sections were added.
 
 ## Known tooling limitations
 

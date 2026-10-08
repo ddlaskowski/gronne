@@ -1,0 +1,68 @@
+@layer components {
+  .featured-craft {
+    padding-block: var(--section-space);
+    background: var(--surface);
+    color: var(--foreground);
+  }
+
+  .featured-craft-header {
+    padding-bottom: var(--space-24);
+    margin-bottom: clamp(var(--space-32), 4vw, var(--space-64));
+    border-bottom: 1px solid var(--border);
+  }
+
+  .featured-craft-grid.layout-grid { row-gap: var(--space-32); }
+
+  .featured-craft-copy, .featured-craft-media {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+
+  .featured-craft-heading {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-heading);
+  }
+
+  .featured-craft-heading span { display: block; }
+
+  .featured-craft-description {
+    max-width: 36ch;
+    margin-top: var(--space-24);
+    color: var(--text-muted);
+  }
+
+  .featured-craft-media {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    aspect-ratio: 4 / 3;
+    padding: var(--space-24);
+    background: color-mix(in srgb, var(--color-stone) 30%, var(--color-ivory));
+  }
+
+  .featured-craft-placeholder-label {
+    color: var(--foreground);
+    font-size: var(--type-micro);
+  }
+
+  .featured-craft-image {
+    object-fit: cover;
+    object-position: var(--craft-position-mobile, 50% 50%);
+  }
+
+  @media (min-width: 48rem) {
+    .featured-craft-copy { grid-column: 4 / -1; grid-row: 1; align-self: center; }
+    .featured-craft-media { grid-column: 1 / span 3; grid-row: 1; aspect-ratio: 4 / 5; }
+    .featured-craft-image { object-position: var(--craft-position-tablet, 50% 50%); }
+  }
+
+  @media (min-width: 75rem) {
+    .featured-craft-copy { grid-column: 8 / -1; padding-left: var(--space-16); }
+    .featured-craft-media { grid-column: 1 / span 7; aspect-ratio: 5 / 4; padding: var(--space-32); }
+    .featured-craft-heading { font-size: clamp(3.5rem, 5vw, 5.5rem); }
+    .featured-craft-description { margin-top: var(--space-32); }
+    .featured-craft-image { object-position: var(--craft-position-desktop, 50% 50%); }
+  }
+}
