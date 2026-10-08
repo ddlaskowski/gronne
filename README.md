@@ -1,9 +1,9 @@
 # Grønne Mur og Flis AS
 
-Phase 13: service content alignment for gronne-murogflis.no.
+Phase 14: editorial Contact page for gronne-murogflis.no.
 The homepage contains the hero, introduction, services, featured craft, selected projects,
 about preview and contact CTA. A shared footer closes every route.
-Services, Projects and About have complete editorial layouts; Contact remains a minimal Norwegian Bokmål placeholder.
+Services, Projects, About and Contact have complete editorial layouts in Norwegian Bokmål.
 
 ## Development
 
@@ -539,6 +539,32 @@ Browser checks covered the homepage, Services, About, Projects and Contact at
 horizontal overflow, clipped text, console errors or duplicate footers. Updated
 headings wrap naturally; contact/About CTAs and shared navigation work by keyboard.
 Production preview: `http://localhost:3008` (port 3008).
+
+## Contact page — Phase 14
+
+`src/app/kontakt/page.tsx` replaces the placeholder with a Server Component and
+route-specific SEO metadata. It contains the supplied introduction, semantic
+contact details and closing statement. Phone and email are direct `tel:` and
+`mailto:` links; no form, images, icons or new dependencies were added.
+
+Route-scoped `src/styles/contact-page.css` reuses the shared container, grid,
+fonts, palette and spacing tokens. Desktop offsets the headline and contact
+values; tablet retains balanced label/value columns; mobile stacks each group.
+Thin rules and underlined typographic links lead into a charcoal closing surface
+and the existing global footer. No animations or transitions were introduced.
+The brand-gradient token remains unset; no new gradient was invented.
+
+ESLint, TypeScript and the production build passed. Homepage, Services, Projects,
+About, Header and Footer files are unchanged. Preview: `http://localhost:3009/kontakt`
+(port 3009).
+Browser checks and visual review covered 375, 768, 1024 and 1440px: no horizontal
+overflow, clipping or console errors; one H1, semantic contact groups and one
+footer directly after the closing section. Text contrast is at least 7.79:1.
+Both links have visible keyboard focus and targets of at least 44px. Exact
+telephone/email URI destinations, shared navigation and homepage Contact CTA
+navigation were checked; external phone/email applications were not launched.
+Reduced-motion rendering has no page animations or transitions. No remaining
+page issues were found.
 
 ## Known tooling limitations
 
