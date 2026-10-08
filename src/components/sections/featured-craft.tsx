@@ -2,6 +2,7 @@ import Image, { type StaticImageData } from "next/image";
 import type { CSSProperties } from "react";
 import { Container } from "@/components/layout/container";
 import { RevealHeading } from "@/components/motion/reveal-heading";
+import { RevealImage } from "@/components/motion/reveal-image";
 
 type CraftImage = {
   src: string | StaticImageData;
@@ -33,7 +34,7 @@ export function FeaturedCraft({ image }: { image?: CraftImage }) {
               fungerer i praksis. Detaljene er en viktig del av helheten.
             </p>
           </div>
-          <div className="featured-craft-media" style={imagePosition}>
+          <RevealImage className="featured-craft-media" style={imagePosition}>
             {image ? (
               <Image
                 src={image.src}
@@ -45,7 +46,7 @@ export function FeaturedCraft({ image }: { image?: CraftImage }) {
             ) : (
               <p className="featured-craft-placeholder-label type-label">PROSJEKTFOTO KOMMER</p>
             )}
-          </div>
+          </RevealImage>
         </div>
       </Container>
     </section>

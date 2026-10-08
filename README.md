@@ -1,6 +1,6 @@
 # Grønne Mur og Flis AS
 
-Phase 18: selective homepage scroll choreography for gronne-murogflis.no.
+Phase 19: architectural image reveal foundation for gronne-murogflis.no.
 The homepage contains the hero, introduction, services, featured craft, selected projects,
 about preview and contact CTA. A shared footer closes every route.
 Services, Projects, About and Contact have complete editorial layouts in Norwegian Bokmål.
@@ -41,7 +41,7 @@ The layout, logo and route placeholders are Server Components. The hero is also
 a Server Component. Header scroll state, desktop active-route navigation,
 the mobile menu, selected homepage reveal headings, Hero entrance text boundary
 and optional image-load failure handling use Client Components. GSAP is used for
-selected homepage heading reveals and the Hero entrance;
+selected homepage heading reveals, the Hero entrance and Featured Craft media;
 there are no additional UI or state-management libraries.
 
 ## Navigation and brand
@@ -731,6 +731,59 @@ captures remain outside the repository. No production diagnostics were added.
 
 Production preview: `http://localhost:3013` (port 3013). Physical iOS/Android motion smoothness and
 assistive-technology behavior remain manual checks.
+
+## Architectural image reveal — Phase 19
+
+`src/components/motion/reveal-image.tsx` provides a reusable client `RevealImage`.
+Its minimal API is standard div props (`children`, `className`, `style`, etc.).
+Children can be the current placeholder or a future approved `next/image`.
+Featured Craft replaces its existing media div with this component, preserving
+the same DOM geometry, CSS classes, image positioning and responsive aspect
+ratios. The section remains a Server Component. Its heading reveal is unchanged.
+No galleries, other sections, subpages, content, SEO or styles were changed.
+No new dependencies were installed.
+
+The existing cached client loader and motion easing/start defaults are reused.
+A scoped GSAP matchMedia context creates one `fromTo` tween: clip-path moves from
+`inset(100% 0 0 0)` to `inset(0% 0 0 0)` over 1.1 seconds with `power3.out`.
+The media has its own ScrollTrigger, starting at `top 85%` with `once: true`.
+Only clip-path is animated; no image translation, scale, opacity or permanent
+will-change is applied. Inline clip-path is cleared after completion. The reveal
+is marked as started so an interrupted animation cannot replay on a preference
+change within the same mount. Visible/history-restored media is never re-hidden.
+
+Server HTML and CSS remain visible without JavaScript or if script loading fails.
+Reduced motion skips the tween entirely. Live preference changes revert the
+clip-path and owned trigger immediately. On unmount, the scoped context reverts
+owned animation/styles; a cancelled-effect guard prevents delayed imports from
+initializing after navigation. No global kill/refresh calls or diagnostics ship.
+
+ESLint, TypeScript and the production build passed. Headless Edge checks at
+375, 768, 1024 and 1440px verified independent trigger settings, early/intermediate/
+completed states, once-only playback, unchanged media and section geometry,
+document height, no horizontal overflow or unintended text clipping, and no
+animation scrollbars. Reduced-motion, disabled-JavaScript and blocked-script
+contexts preserve visible media with identical dimensions at every width.
+Repeated mounts, leaving during the reveal, browser back/forward, rapid route
+changes, delayed runtime loading and mobile menu/Escape checks passed without
+duplicate triggers, owned tween leaks, stale inline clip-path or console errors.
+All seven existing heading trigger settings remain unchanged.
+
+During a 1.35-second browser frame sample at each viewport, median intervals were
+16.7ms and the longest interval was 33.3ms, with no intervals over 50ms. This
+suggests no unacceptable stutter in the desktop/headless mobile-viewport test;
+physical iOS/Android GPU performance and approved-photo rendering remain untested.
+Browser scripts, diagnostics and screenshots are outside the repository.
+
+Known limitation: changing reduced motion while homepage reveals are running
+can reset scroll position to the top through the existing GSAP matchMedia/
+ScrollTrigger lifecycle. An isolated browser comparison disabling the new image
+effect reproduced the same jump. The image remains immediately visible and does
+not replay, but the existing typography lifecycle was preserved as required.
+Normal scrolling and route/history navigation checks passed. This shared motion
+foundation issue needs a separate fix that can include existing heading behavior.
+
+Production preview: `http://localhost:3014` (port 3014).
 
 ## Known tooling limitations
 
