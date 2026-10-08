@@ -1,0 +1,116 @@
+@layer components {
+  .services-page { background: var(--surface); color: var(--foreground); }
+
+  .services-page-hero { padding-block: var(--section-space); background: var(--background); }
+  .services-page-hero-grid.layout-grid { row-gap: var(--space-32); }
+
+  .services-page-hero-label, .services-page-hero-heading, .services-page-hero-description,
+  .services-page-number, .services-page-service-heading, .services-page-service-copy,
+  .services-page-media, .services-page-contact-heading, .services-page-contact-link {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+
+  .services-page-hero-heading {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-heading);
+  }
+
+  .services-page-hero-heading span { display: block; }
+  .services-page-hero-description { max-width: 38ch; color: var(--text-muted); }
+
+  .services-page-service { padding-block: clamp(var(--space-48), 6vw, var(--space-96)); }
+  .services-page-mur-og-puss { background: var(--background); }
+
+  .services-page-service-header.layout-grid {
+    padding-top: var(--space-24);
+    border-top: 1px solid var(--border);
+    row-gap: var(--space-16);
+    margin-bottom: var(--space-24);
+  }
+
+  .services-page-service-heading {
+    font-size: clamp(2rem, 4.8vw, 4.5rem);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+    text-wrap: pretty;
+    overflow-wrap: break-word;
+  }
+
+  .services-page-service-body.layout-grid { row-gap: var(--space-24); }
+  .services-page-keywords { font-size: var(--type-label); }
+  .services-page-description { max-width: 36ch; margin-top: var(--space-16); color: var(--text-muted); }
+
+  .services-page-media {
+    display: flex;
+    align-items: flex-end;
+    aspect-ratio: 4 / 3;
+    padding: var(--space-24);
+    background: color-mix(in srgb, var(--color-stone) 30%, var(--color-ivory));
+  }
+
+  .services-page-mur-og-puss .services-page-media {
+    background: color-mix(in srgb, var(--color-stone) 18%, var(--color-ivory));
+  }
+
+  .services-page-betong-og-forskaling .services-page-media {
+    aspect-ratio: 3 / 2;
+    background: color-mix(in srgb, var(--color-stone) 24%, var(--color-ivory));
+  }
+
+  .services-page-placeholder-label { font-size: var(--type-micro); }
+
+  .services-page-contact {
+    --focus-ring: var(--foreground-inverse);
+    padding-block: clamp(var(--space-64), 8vw, var(--space-128));
+    background: var(--color-charcoal);
+    color: var(--foreground-inverse);
+  }
+
+  .services-page-contact .layout-grid { row-gap: var(--space-32); align-items: center; }
+
+  .services-page-contact-heading {
+    font-size: var(--type-section);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+    max-width: 20ch;
+  }
+
+  .services-page-contact-link { justify-self: start; }
+
+  @media (min-width: 48rem) {
+    .services-page-hero-grid.layout-grid { row-gap: var(--space-48); }
+    .services-page-hero-heading { grid-column: 2 / -1; }
+    .services-page-hero-description { grid-column: 3 / -1; }
+    .services-page-number { grid-column: 1; padding-top: var(--space-8); }
+    .services-page-service-heading { grid-column: 2 / -1; }
+    .services-page-service-header.layout-grid { margin-bottom: var(--space-32); }
+    .services-page-service-copy { grid-column: 4 / -1; grid-row: 1; align-self: center; }
+    .services-page-media { grid-column: 1 / span 3; grid-row: 1; aspect-ratio: 4 / 5; }
+    .services-page-mur-og-puss .services-page-service-copy,
+    .services-page-betong-og-forskaling .services-page-service-copy { grid-column: 1 / span 3; }
+    .services-page-mur-og-puss .services-page-media,
+    .services-page-betong-og-forskaling .services-page-media { grid-column: 4 / -1; }
+    .services-page-contact-heading { grid-column: 1 / span 4; }
+    .services-page-contact-link { grid-column: 5 / -1; }
+  }
+
+  @media (min-width: 75rem) {
+    .services-page-hero-label { grid-column: 1 / span 3; padding-top: var(--space-12); }
+    .services-page-hero-heading { grid-column: 4 / -1; font-size: clamp(4rem, 7.5vw, 7rem); }
+    .services-page-hero-description { grid-column: 8 / -1; }
+    .services-page-service-header.layout-grid { margin-bottom: var(--space-48); }
+    .services-page-service-copy { grid-column: 9 / -1; }
+    .services-page-media { grid-column: 1 / span 7; aspect-ratio: 5 / 4; padding: var(--space-32); }
+    .services-page-mur-og-puss .services-page-service-copy { grid-column: 1 / span 4; }
+    .services-page-mur-og-puss .services-page-media { grid-column: 6 / -1; aspect-ratio: 4 / 3; }
+    .services-page-betong-og-forskaling .services-page-service-copy { grid-column: 2 / span 5; }
+    .services-page-betong-og-forskaling .services-page-media { grid-column: 9 / -1; aspect-ratio: 4 / 5; }
+    .services-page-contact-heading { grid-column: 2 / span 7; }
+    .services-page-contact-link { grid-column: 10 / -1; }
+  }
+}

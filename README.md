@@ -1,9 +1,9 @@
 # Grønne Mur og Flis AS
 
-Phase 09: contact CTA and global footer for gronne-murogflis.no.
+Phase 10: editorial services page for gronne-murogflis.no.
 The homepage contains the hero, introduction, services, featured craft, selected projects,
 about preview and contact CTA. A shared footer closes every route.
-The four navigation destinations remain minimal Norwegian Bokmål placeholders.
+The Services page is complete; Projects, About and Contact remain minimal Norwegian Bokmål placeholders.
 
 ## Development
 
@@ -391,6 +391,54 @@ have no animations/transitions. No console or application errors were observed.
 Hashes of all 19 previously completed section/style/subpage files are unchanged.
 Screenshots were saved outside the repository, with the fixed header hidden only
 during section captures. No outstanding issues were found for this phase.
+
+## Services page
+
+`src/app/tjenester/page.tsx` replaces the route placeholder with a Server Component
+and a route-specific title. It has one H1, the supplied service names/keywords/
+descriptions, three labelled semantic service sections with H2 headings, and a
+simple closing CTA to `/kontakt`. Content is limited to the supplied wording;
+no credentials, methods, guarantees, counts, testimonials or fictional project
+information were added.
+
+`src/styles/services-page.css` is imported by the route and scopes all selectors
+to Services page classes. It reuses `Container`, the 12/6/4-column grid, palette,
+font and spacing tokens without changing shared styles or utilities. The light
+hero has a two-line regular-weight headline, a left label and offset description.
+DM Sans carries the large headings and copy; IBM Plex Mono carries the indices,
+keywords, placeholder labels and CTA.
+
+On desktop, Bad & Flis places a 5:4 media area in columns 1–7 and copy in columns
+9–12. Mur & Puss reverses the composition: copy in columns 1–4 and 4:3 media in
+columns 6–12. Betong & Forskaling uses copy in columns 2–6 and a smaller 4:5
+portrait surface in columns 9–12. Thin rules and alternating paper/ivory surfaces
+maintain consistency. Tablet uses equal three-column media/copy areas with
+alternating placement; the third media area is a shorter landscape. Mobile keeps
+number, heading, keywords, description and media in that reading order, with 24px
+internal gaps and 48px section padding. The long final heading wraps to two lines.
+
+All media areas are neutral mixes of the existing stone and ivory tokens labelled
+`PROSJEKTFOTO KOMMER`. There are no real or generated photographs, image requests,
+icons or fictional metadata. These surfaces await approved client photography.
+The closing charcoal CTA reuses the existing `contact-cta-link` treatment and
+paper focus ring; the existing root-layout footer is rendered only once. No
+animations, transitions or dependencies were added.
+
+Phase 10 validation: ESLint (zero warnings), TypeScript and production build
+passed. The fresh production server reported port 3005 and returned HTTP 200 at
+`http://localhost:3005/tjenester`. Browser checks and visual review covered
+1440 × 900, 768 × 1024, 393 × 852 and 320 × 700. All sizes confirmed one H1,
+three service placeholders, correct alternating desktop/tablet layouts, natural
+mobile wrapping, no horizontal overflow or clipped copy, and exactly one global
+footer immediately after main content. Body-text contrast is approximately
+7.8–8.2:1 and placeholder-label contrast exceeds 13:1. Keyboard focus is visible
+on the 44px contact link; Enter opened `/kontakt`. Footer navigation returned to
+Services, and the brand link returned to the unchanged seven-section homepage.
+No console or application errors were observed. Reduced-motion styles have no
+animations/transitions. Hashes of all 27 previously completed homepage, layout,
+component and style files are unchanged. Existing user favicon changes were
+preserved. Screenshots were saved outside the repository, with the fixed header
+hidden only during section captures. No functional issues were found.
 
 ## Known tooling limitations
 
