@@ -1,8 +1,8 @@
 # Grønne Mur og Flis AS
 
-Phase 01: project foundation and design system for gronne-murogflis.no.
-The homepage is a minimal Norwegian Bokmål placeholder. Navigation, hero,
-services, projects, footer and animation belong to later phases.
+Phase 02: brand integration and responsive navigation for gronne-murogflis.no.
+The homepage and four navigation destinations are minimal Norwegian Bokmål
+placeholders. Hero, services, projects and footer belong to later phases.
 
 ## Development
 
@@ -34,8 +34,41 @@ on a clean checkout. Google Fonts must be reachable during the first build;
 - `src/components/ui`, `src/components/sections`, `src/lib`: reserved for future phases.
 - `public/brand`, `public/images/{hero,projects,services}`: reserved asset directories.
 
-All current components are Server Components. There are no additional client
-components or libraries for animation, UI or state management.
+The layout, logo, desktop navigation and route placeholders are Server
+Components. Only header scroll state and the mobile menu use Client Components.
+There are no extra libraries for animation, UI or state management.
+
+## Navigation and brand
+
+`BrandLogo` renders the original `public/brand/gronne-logo.svg` through
+`next/image`, using the 663.43 × 464.89 viewBox ratio. The asset is unchanged;
+its original gradient and geometry stay inside the SVG. The logo has a neutral
+ivory backing so it remains usable over future dark imagery.
+
+The fixed header starts with a transparent bar and neutral backing behind the
+logo and controls. After 32px of scrolling it becomes compact with an ivory
+background. Its reserved layout height stays constant to prevent content jumps.
+For the future split hero, extend the hero behind this reserved header area;
+the hero itself has not been implemented.
+
+At 1024px and above, the four links appear horizontally. Below that breakpoint,
+the menu toggle opens a native modal dialog. The menu supports focus cycling,
+Escape, a close button, scroll locking, link-selection closing, and automatic
+closing when switching to desktop. Native dialog focus restoration returns
+focus to the toggle. CSS transitions respect `prefers-reduced-motion`.
+An accessible skip link targets `#main-content` on every route.
+
+Phase 02 validation: ESLint (zero warnings), route type generation, TypeScript
+and the production build passed. Browser checks covered desktop at 1280px and
+mobile at 375px: no horizontal overflow, focus cycling in both directions,
+Escape and focus restoration, scroll-lock restoration, link navigation, menu
+closing at the desktop breakpoint, and the compact header after scrolling.
+No browser console errors or warnings were observed. Reduced-motion support
+is implemented in CSS; it was not tested with an OS preference override.
+
+`src/lib/navigation.ts` is the shared source for the four destinations.
+`src/styles/navigation.css` contains the header and menu styles without changing
+the existing design tokens. Route placeholders contain only their page headings.
 
 ## Design system
 
@@ -58,8 +91,7 @@ and 12 columns from 1200px. Typography and section spacing scale fluidly.
 
 ## Next phase
 
-Obtain the original logo and approved imagery, confirm the foundation, then
-develop navigation and the final hero in a separate phase.
+Obtain approved imagery and develop the final hero in a separate phase.
 
 ## Known tooling limitations
 

@@ -2,7 +2,7 @@ import { Container } from "@/components/layout/container";
 
 export default function Home() {
   return (
-    <main className="foundation-page">
+    <main id="main-content" tabIndex={-1} className="foundation-page">
       <Container>
         <div className="layout-grid">
           <div className="foundation-copy">

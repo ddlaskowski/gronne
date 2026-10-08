@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
+@import "../styles/navigation.css";
 
 @theme inline {
   --color-background: var(--background);
@@ -16,6 +17,7 @@
 @layer base {
   html {
     color-scheme: light;
+    scrollbar-gutter: stable;
   }
 
   body {
