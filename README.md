@@ -1,7 +1,7 @@
 # Grønne Mur og Flis AS
 
-Phase 07: selected projects section for gronne-murogflis.no.
-The homepage contains the hero, introduction, services, featured craft and selected projects;
+Phase 08: about preview section for gronne-murogflis.no.
+The homepage contains the hero, introduction, services, featured craft, selected projects and about preview;
 the four navigation destinations remain minimal
 Norwegian Bokmål placeholders. Other homepage sections belong to later phases.
 
@@ -33,7 +33,7 @@ on a clean checkout. Google Fonts must be reachable during the first build;
 - `src/styles/tokens.css`: palette, semantic colors, spacing, type and layout tokens.
 - `src/components/layout`: header, navigation, mobile menu and responsive container.
 - `src/components/ui`: original brand logo.
-- `src/components/sections`: hero, image loader, introduction, services, featured craft and selected projects.
+- `src/components/sections`: hero, image loader, introduction, services, featured craft, selected projects and about preview.
 - `src/lib`: shared navigation destinations.
 - `public/brand`, `public/images/{hero,projects,services}`: reserved asset directories.
 
@@ -308,6 +308,45 @@ No console or application errors were observed. Screenshots were captured outsid
 the repository; section captures hide the fixed header only during capture.
 Approved photos and real project metadata remain pending. No dependencies,
 additional sections or subpage changes were introduced.
+
+## About preview
+
+`src/components/sections/about-preview.tsx` is a Server Component immediately
+after Selected Projects. It contains only the supplied Norwegian heading,
+paragraph and `BLI KJENT MED OSS ↗` link to `/om-oss`. No history, credentials,
+statistics, testimonials or other company claims have been added. The destination
+page remains unchanged.
+
+`src/styles/about-preview.css` reuses the existing container, responsive grid,
+spacing, fonts and color tokens. Paper provides a subtle transition from the
+ivory Projects section. A thin rule anchors the typography-led composition.
+Desktop places the label in columns 1–3, the three-line headline in columns 4–12,
+and the narrower paragraph and CTA in columns 8–12. Tablet shifts the headline
+to columns 2–6 and supporting copy to columns 3–6. Mobile uses one reading column
+in the order label, heading, paragraph and CTA.
+
+Regular-weight DM Sans scales from 36px on mobile to 72px at 1440px, with a
+maximum of 88px. The paragraph is limited to 38ch and uses accessible muted text.
+IBM Plex Mono carries the section label and CTA. The semantic section is labelled
+by its H2; the arrow is hidden from assistive technology. The link has a 44px
+minimum target height and uses the shared focus outline. No imagery, cards,
+animations or transitions are introduced, so reduced-motion preferences require
+no separate animation override.
+
+Phase 08 validation: ESLint (zero warnings), TypeScript and production build
+passed. A fresh production server reported port 3003; actual browser checks at
+`http://localhost:3003` returned HTTP 200 and confirmed the six-section homepage
+order. Visual review and layout checks at 1440 × 900, 768 × 1024, 393 × 852 and
+320 × 700 confirmed the three headline lines, grid alignment, zero gap after
+Selected Projects and no horizontal overflow or clipped text. Paragraph contrast
+measured approximately 8.2:1. Keyboard focus displayed the shared 2px outline
+with 4px offset; Enter navigated to `/om-oss` and its existing H1. Normal and
+reduced-motion checks returned no animations or transitions. No console or
+application errors were observed. Source hashes confirm the completed sections,
+their styles, navigation styles, design tokens and About subpage are unchanged.
+Screenshots are outside the repository; section captures hide the fixed header
+only during capture. No outstanding section issues were found. No dependencies,
+Contact, Footer or subpage changes were added.
 
 ## Known tooling limitations
 
