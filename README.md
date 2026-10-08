@@ -1,7 +1,7 @@
 # Grønne Mur og Flis AS
 
-Phase 03: editorial split hero for gronne-murogflis.no.
-The homepage contains the hero; the four navigation destinations remain minimal
+Phase 04: brand philosophy and introduction for gronne-murogflis.no.
+The homepage contains the hero and introduction; the four navigation destinations remain minimal
 Norwegian Bokmål placeholders. Other homepage sections belong to later phases.
 
 ## Development
@@ -32,7 +32,7 @@ on a clean checkout. Google Fonts must be reachable during the first build;
 - `src/styles/tokens.css`: palette, semantic colors, spacing, type and layout tokens.
 - `src/components/layout`: header, navigation, mobile menu and responsive container.
 - `src/components/ui`: original brand logo.
-- `src/components/sections`: hero and its optional image loader.
+- `src/components/sections`: hero, image loader and introduction.
 - `src/lib`: shared navigation destinations.
 - `public/brand`, `public/images/{hero,projects,services}`: reserved asset directories.
 
@@ -45,8 +45,11 @@ There are no extra libraries for animation, UI or state management.
 
 `BrandLogo` renders the original `public/brand/gronne-logo.svg` through
 `next/image`, using the 663.43 × 464.89 viewBox ratio. The asset is unchanged;
-its original gradient and geometry stay inside the SVG. The logo has a neutral
-ivory backing so it remains usable over future dark imagery.
+its original gradient and geometry stay inside the SVG. A CSS viewport exposes
+source x=160–660, removing only the transparent side margins without editing the
+asset or cutting painted geometry. The tight ivory backing retains contrast over
+the approved photograph. Its desktop footprint is 92 × 86px; the mobile footprint
+is 72 × 67.5px. The logo and menu controls remain vertically centered.
 
 The fixed header starts with a transparent bar and neutral backing behind the
 logo and controls. After 32px of scrolling it becomes compact with an ivory
@@ -95,8 +98,7 @@ and 12 columns from 1200px. Typography and section spacing scale fluidly.
 
 ## Next phase
 
-Supply approved hero photography and confirm its crop. Further homepage
-sections and motion design remain separate phases.
+Further homepage sections and motion design remain separate phases.
 
 ## Hero
 
@@ -112,26 +114,80 @@ larger text can expand its height instead of clipping content. The CTA has a
 thin rule, a simple arrow, a visible focus state and a small hover transition
 that is disabled under reduced motion. No entrance animation is applied.
 
-Photography belongs at `public/images/hero/hero-craft.webp`. This file is
-currently absent, so the hero shows a dark architectural CSS placeholder and
-makes no request for a missing image. Add the file and rebuild to activate it.
-The image uses `next/image`, `fill`, responsive `sizes`, cover fitting and
-`object-position: 45% 50%`. It is preloaded because it is above the fold on
-desktop. Its empty alt marks it as decorative beside the complete text content.
-Review the crop and alt decision when the approved photograph is available.
-An image-load failure removes only the image, retaining the same panel geometry
-and CSS placeholder. No filters or overlays are applied to photography.
+The approved `public/images/hero/hero-craft.png` is preserved. Its WebP delivery
+copy was converted with the existing Sharp dependency at quality 88 and effort
+6, without cropping or resizing. Both are 1086 × 1448px. File size decreased
+from 2,425,036 to 210,700 bytes (91.3% smaller).
+
+The WebP is statically imported, giving Next.js intrinsic image metadata and a
+content-hashed asset URL. `next/image` uses `fill`, responsive `sizes` (49vw on
+desktop, 100vw otherwise), cover fitting and preload for the desktop image above
+the fold. It generates appropriately sized delivery images. Meaningful Norwegian
+alt text describes the hand, notched trowel and adhesive ridges.
+
+Desktop positioning is `50% 62%`. Tablet uses a 4/3 panel at `58% 62%`;
+mobile uses a square panel at `58% 80%`. These crops keep the hand, trowel and
+curved adhesive ridges visible. The panel reserves its geometry before loading.
+An image-load failure removes only the image, retaining the same geometry and
+CSS fallback. No filters or overlays are applied to photography.
 
 The original logo is unchanged. The optional decorative G is omitted because
 the provided asset includes the full wordmark.
 
-Phase 03 validation: ESLint (zero warnings), TypeScript and production build
-passed. Layout checks covered 320px, 375px, 768px, 1024px (600px-tall window),
-1280px and 1440px widths. The corrected layouts have no horizontal overflow or
-heading overflow. Production checks confirmed the project CTA, visible keyboard
-focus, the mobile menu and Escape, and no console errors or warnings. The missing
-photograph produces no broken-image request. Actual photo loading, final crop
-and load-failure recovery still need verification with the approved asset.
+Phase 03.1 validation: ESLint (zero warnings), TypeScript and production build
+passed. Production layout and crop checks covered 1440 × 900, 1280 × 800,
+768 × 1024, 390 × 844 and 320 × 700. There is no horizontal or heading overflow,
+and the heading retains its two intended lines. The image loads successfully
+through the Next.js optimizer. One H1, meaningful alt, visible CTA keyboard focus,
+mobile-menu Escape and focus restoration were verified. Header compaction keeps
+the hero's document position and height unchanged. No console errors or warnings
+were observed. Desktop and mobile screenshots were captured outside the repo.
+Reduced-motion CSS is preserved; an OS preference override and a forced network
+failure were not simulated.
+
+Phase 03.2: mobile header height decreased from 128px to 96px (72px when compact).
+Below 768px, copy starts 32px below the header; heading margins are 16/24px, CTA
+margin is 24px, location spacing is 24px plus 12px above its label, and bottom
+padding is 32px. Headline size, fonts, copy, CTA and desktop split are unchanged.
+The location label stays in the content flow, and no fixed content height is used.
+
+Production checks at 1440 × 900, 393 × 852 and 320 × 700 passed without horizontal
+overflow or heading clipping. Photography starts at 499px on the 393px screen
+and 522px on the 320px screen. The glove, trowel and curved adhesive ridges are
+visible in the first mobile viewport. Desktop navigation needed no changes.
+Keyboard focus, mobile focus cycling, Escape, scroll locking/restoration and
+header compaction were verified. Hero document position and height stay constant
+through header compaction. Compiled reduced-motion rules cover header, logo frame,
+menu and CTA transitions. No console errors or warnings were observed. ESLint,
+TypeScript and production build passed; no dependencies were added.
+
+## Introduction
+
+`src/components/sections/introduction.tsx` is a Server Component placed directly
+after the hero. It uses the supplied Norwegian brand copy as proposed wording,
+without adding company history, credentials or statistics.
+
+The section reuses `Container`, `.layout-grid`, paper/charcoal colors, spacing
+tokens and both existing fonts. On the 12-column desktop grid, the index sits
+in columns 1–3, the H2 begins at column 4, and the supporting paragraph begins
+at column 8. Tablet uses the six-column grid with smaller type and offsets;
+mobile presents label, H2 and paragraph in one reading column.
+
+The heading has three controlled lines on larger screens and natural wrapping
+on mobile. Its regular weight, tracking and line height reuse typography tokens.
+A thin rule and generous negative space provide structure. There are no images,
+icons, client interactions, transitions or animations in this section. The hero
+remains the page's sole H1; the introduction is a labelled semantic section with
+an H2. `src/styles/introduction.css` contains only this section's styles.
+
+Phase 04 validation: ESLint (zero warnings), TypeScript and production build
+passed. Production checks at 1440 × 900, 768 × 1024 and 393 × 852 confirmed
+typography, the 12/6/4-column grids, 48/48/32px row gaps and no horizontal or
+heading overflow. The introduction begins directly after the hero with zero
+layout gap. No browser console errors or warnings were observed. The section
+has no animations or transitions, so no motion override is needed. Desktop and
+mobile previews were captured outside the repo. Hero and header were not edited
+in this phase; no dependencies or additional homepage sections were added.
 
 ## Known tooling limitations
 

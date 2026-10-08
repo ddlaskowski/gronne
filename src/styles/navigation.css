@@ -1,5 +1,5 @@
 @layer components {
-  :root { --header-height: 8rem; }
+  :root { --header-height: 6rem; }
 
   .site-header {
     height: var(--header-height);
@@ -25,15 +25,26 @@
   .brand-link {
     display: block;
     flex-shrink: 0;
-    padding: var(--space-8);
+    padding: var(--space-4);
     background: var(--color-ivory);
+  }
+
+  /* Viewport removes only transparent SVG margins (source x: 160–660).
+     The original image, its proportions and all painted geometry are retained. */
+  .brand-logo-frame {
+    display: block;
+    width: 4rem;
+    aspect-ratio: 500 / 464.89;
+    overflow: hidden;
+    transition: width 200ms ease;
   }
 
   .brand-logo {
     display: block;
-    width: 7.5rem;
+    width: calc(100% * 663.43 / 500);
+    max-width: none;
     height: auto;
-    transition: width 200ms ease;
+    transform: translateX(calc(-100% * 160 / 663.43));
   }
 
   .site-header[data-compact="true"] .header-bar {
@@ -41,8 +52,8 @@
     border-bottom: 1px solid var(--border);
   }
 
-  .site-header[data-compact="true"] .header-content { height: 5.5rem; }
-  .site-header[data-compact="true"] .brand-logo { width: 5rem; }
+  .site-header[data-compact="true"] .header-content { height: 4.5rem; }
+  .site-header[data-compact="true"] .brand-logo-frame { width: 3.25rem; }
   .desktop-navigation { display: none; }
 
   .menu-toggle {
@@ -121,9 +132,9 @@
 
   @media (min-width: 64rem) {
     :root { --header-height: 10rem; }
-    .brand-logo { width: 10rem; }
+    .brand-logo-frame { width: 5.25rem; }
     .site-header[data-compact="true"] .header-content { height: 6rem; }
-    .site-header[data-compact="true"] .brand-logo { width: 6rem; }
+    .site-header[data-compact="true"] .brand-logo-frame { width: 3.5rem; }
     .header-menu-toggle { display: none; }
     .desktop-navigation { display: block; background: var(--color-ivory); }
     .desktop-navigation ul { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 3rem); }
@@ -131,7 +142,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .header-bar, .header-content, .brand-logo, .mobile-menu { transition: none; }
+    .header-bar, .header-content, .brand-logo-frame, .mobile-menu { transition: none; }
     .mobile-menu { transform: none; }
   }
 }

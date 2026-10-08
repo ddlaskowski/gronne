@@ -1,11 +1,8 @@
-import { existsSync } from "node:fs";
-import path from "node:path";
 import Link from "next/link";
 import { HeroImage } from "@/components/sections/hero-image";
+import heroCraft from "../../../public/images/hero/hero-craft.webp";
 
 export function Hero() {
-  const hasImage = existsSync(path.join(process.cwd(), "public/images/hero/hero-craft.webp"));
-
   return (
     <section className="hero" aria-labelledby="hero-heading">
       <div className="hero-copy-panel">
@@ -28,7 +25,7 @@ export function Hero() {
       </div>
       <div className="hero-media">
         <div className="hero-image-placeholder" aria-hidden="true" />
-        {hasImage && <HeroImage />}
+        <HeroImage image={heroCraft} />
       </div>
     </section>
   );

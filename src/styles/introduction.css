@@ -1,0 +1,43 @@
+@layer components {
+  .introduction {
+    padding-block: var(--section-space);
+    background: var(--surface);
+    color: var(--foreground);
+  }
+
+  .introduction-grid.layout-grid {
+    row-gap: var(--space-32);
+    padding-top: var(--space-24);
+    border-top: 1px solid var(--border);
+  }
+
+  .introduction-label, .introduction-heading, .introduction-description {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+
+  .introduction-heading {
+    max-width: 14ch;
+    font-size: clamp(2.25rem, 1.5rem + 3.5vw, 5.5rem);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-display);
+    letter-spacing: var(--tracking-heading);
+    text-wrap: pretty;
+  }
+
+  .introduction-description { max-width: 42ch; }
+
+  @media (min-width: 48rem) {
+    .introduction-grid.layout-grid { row-gap: var(--space-48); padding-top: var(--space-32); }
+    .introduction-heading { grid-column: 2 / -1; }
+    .introduction-heading span { display: block; }
+    .introduction-description { grid-column: 3 / -1; }
+  }
+
+  @media (min-width: 75rem) {
+    .introduction-grid.layout-grid { row-gap: var(--space-48); }
+    .introduction-label { grid-column: 1 / span 3; padding-top: var(--space-12); }
+    .introduction-heading { grid-column: 4 / span 8; font-size: clamp(4rem, 5.5vw, 5.5rem); }
+    .introduction-description { grid-column: 8 / span 4; }
+  }
+}
